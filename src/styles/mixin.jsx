@@ -35,3 +35,12 @@ export const fontLarge = css`
   line-height: var(--line-height-large);
   letter-spacing: var(--letter-spacing-large);
 `;
+
+export default {
+  fontMicro,
+  fontTiny,
+  fontSmall,
+  fontBase,
+  fontMedium,
+  fontLarge,
+};

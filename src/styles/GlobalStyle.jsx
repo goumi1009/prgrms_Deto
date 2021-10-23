@@ -36,7 +36,7 @@ const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
     margin: 0;
-    font-family: $font-main;
+    font-family: var(--font-main);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -47,8 +47,8 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: $font-main;
-    color: $primary;
+    font-family: var(--font-main);
+    color: var(--primary);
   }
 
   h1 {
