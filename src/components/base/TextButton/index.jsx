@@ -21,7 +21,6 @@ TextButton.defaultProps = {
 
 TextButton.propTypes = {
   textProps: PropTypes.object.isRequired,
-  children: PropTypes.string.isRequired,
   size: PropTypes.number,
   color: PropTypes.string,
   onClick: PropTypes.func.isRequired,
