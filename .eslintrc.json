@@ -17,6 +17,7 @@
     "import/no-extraneous-dependencies": "off",
     "import/no-unresolved": "off",
     "no-shadow": "off",
-    "react/forbid-prop-types": "off"
+    "react/forbid-prop-types": "off",
+    "treatUndefinedAsUnspecified": false
   }
 }
