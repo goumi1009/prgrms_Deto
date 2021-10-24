@@ -1,54 +1,22 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  :root {
-    --color-dark: #191A20;
-    --color-primary: #0A2F32;
-    --color-secondary: #8C8D96;
-    --color-tertiary: #B2B3B9;
-    --color-border: #E3E5E3;
-    --color-background: #FDFAF4;
-    --color-white: #fff;
-    --color-green: #19B786;
-    --color-green-light: #7DC456;
-    --color-gradient: linear-gradient(#19B786, #7DC456);
-    --font-main: 'Noto Sans KR', sans-serif;
-    --font-size-micro: 12px;
-    --line-height-micro: 16px;
-    --letter-spacing-micro: -0.005em;
-    --font-size-tiny: 13px;
-    --line-height-tiny: 20px;
-    --letter-spacing-tiny: -0.01em;
-    --font-size-small: 14px;
-    --line-height-small: 24px;
-    --letter-spacing-small: -0.01em;
-    --font-size-base: 16px;
-    --line-height-base: 24px;
-    --letter-spacing-base: -0.01em;
-    --font-size-medium: 18px;
-    --line-height-medium: 28px;
-    --letter-spacing-medium: -0.02em;
-    --font-size-large: 24px;
-    --line-height-large: 34px;
-    --letter-spacing-large: -0.01em;
-  }
-
   * {
     box-sizing: border-box;
     margin: 0;
-    font-family: var(--font-main);
+    font-family: 'Noto Sans KR', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   html {
-    font-family: var(--font-main);
-    font-size: var(--font-size-base);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 16px;
   }
 
   body {
-    font-family: var(--font-main);
-    color: var(--primary);
+    font-family: 'Noto Sans KR', sans-serif;
+    color: #0A2F32;
   }
 
   h1 {
