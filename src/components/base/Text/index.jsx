@@ -17,7 +17,7 @@ const Text = ({ content, fontType, strong, color }) => (
 
 Text.defaultProps = {
   content: 'Text를 입력해주세요',
-  fontType: 'fontBase',
+  fontType: 'base',
   strong: false,
   color: 'primary',
 };
