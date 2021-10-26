@@ -8,8 +8,14 @@ const StyledButton = styled.button`
   background-color: ${(props) => color[props.color]};
 `;
 
-const TextButton = ({ textProps, size, color, onClick }) => (
-  <StyledButton type="button" size={size} color={color} onClick={onClick}>
+const TextButton = ({ textProps, name, size, color, onClick }) => (
+  <StyledButton
+    type="button"
+    name={name}
+    size={size}
+    color={color}
+    onClick={onClick}
+  >
     <Text {...textProps} />
   </StyledButton>
 );
@@ -21,6 +27,7 @@ TextButton.defaultProps = {
 
 TextButton.propTypes = {
   textProps: PropTypes.object.isRequired,
+  name: PropTypes.string.isRequired,
   size: PropTypes.number,
   color: PropTypes.string,
   onClick: PropTypes.func.isRequired,
