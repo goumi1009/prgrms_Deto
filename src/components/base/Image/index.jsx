@@ -30,6 +30,7 @@ const Image = ({
   height,
   alt,
   mode,
+  ...props
 }) => {
   const [loaded, setLoaded] = useState(false);
   const imgRef = useRef(null);
@@ -74,6 +75,7 @@ const Image = ({
       width={width}
       height={height}
       mode={mode}
+      {...props}
     />
   );
 };
