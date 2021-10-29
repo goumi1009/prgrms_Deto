@@ -13,6 +13,7 @@ module.exports = {
           '@contexts': 'contexts',
           '@pages': 'pages',
           '@styles': 'styles',
+          '@utils': 'utils',
         },
       },
     },
