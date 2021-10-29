@@ -22,21 +22,29 @@ const Textarea = ({
   textareaName,
   width,
   height,
-}) => (
-  <>
-    {labelText ? (
-      <StyledLabel for={textareaId} fontType={labelFontType}>
-        {labelText}
-      </StyledLabel>
-    ) : null}
-    <StyledTextarea
-      id={textareaId}
-      name={textareaName}
-      width={width}
-      height={height}
-    />
-  </>
-);
+  onChange,
+}) => {
+  const handleChange = (e) => {
+    const { value } = e.target;
+    onChange({ value, name: textareaName });
+  };
+  return (
+    <>
+      {labelText ? (
+        <StyledLabel for={textareaId} fontType={labelFontType}>
+          {labelText}
+        </StyledLabel>
+      ) : null}
+      <StyledTextarea
+        id={textareaId}
+        name={textareaName}
+        width={width}
+        height={height}
+        onChange={handleChange}
+      />
+    </>
+  );
+};
 
 Textarea.defaultProps = {
   labelText: '',
@@ -52,6 +60,7 @@ Textarea.propTypes = {
   labelFontType: PropTypes.string,
   width: PropTypes.number,
   height: PropTypes.number,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Textarea;

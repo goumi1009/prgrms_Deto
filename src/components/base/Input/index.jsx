@@ -28,27 +28,38 @@ const StyledLabel = styled.label`
 const Input = ({
   inputType,
   inputId,
+  inputName,
   placeholder,
   width,
   labelText,
   labelFontType,
-}) => (
-  <>
-    {labelText ? (
-      <StyledLabel for={inputId} fontType={labelFontType}>
-        {labelText}
-      </StyledLabel>
-    ) : null}
-    <StyledInput
-      type={inputType}
-      id={inputId}
-      placeholder={placeholder}
-      width={width}
-    />
-  </>
-);
+  onChange,
+}) => {
+  const handleChange = (e) => {
+    const { value } = e.target;
+    onChange({ value, name: inputName });
+  };
+  return (
+    <>
+      {labelText ? (
+        <StyledLabel htmlFor={inputId} fontType={labelFontType}>
+          {labelText}
+        </StyledLabel>
+      ) : null}
+      <StyledInput
+        type={inputType}
+        id={inputId}
+        name={inputName}
+        placeholder={placeholder}
+        width={width}
+        onChange={handleChange}
+      />
+    </>
+  );
+};
 
 Input.defaultProps = {
+  placeholder: '',
   width: 264,
   labelText: '',
   labelFontType: 'base',
@@ -57,10 +68,12 @@ Input.defaultProps = {
 Input.propTypes = {
   inputType: PropTypes.string.isRequired,
   inputId: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
+  inputName: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
   width: PropTypes.number,
   labelText: PropTypes.string,
   labelFontType: PropTypes.string,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default Input;
