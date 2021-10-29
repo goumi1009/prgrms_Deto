@@ -45,17 +45,20 @@ export const getPostDetail = async (postId) => {
 
 // 포스트 작성하기
 export const sendPost = async (values) => {
-  const meta = {
+  const title = {
     category: values.postCategory,
+    techStack: values.postTechStack,
+  };
+  const meta = {
+    title: values.postTitle,
     description: values.postDescription,
     deployLink: values.postDeployLink,
     githubLink: values.postGithubLink,
-    file: values.postFile,
     collabo: values.postCollabo,
   };
-  const formData = new FormData();
 
-  formData.append('title', values.postTitle);
+  const formData = new FormData();
+  formData.append('title', JSON.stringify(title));
   formData.append('channelId', REACT_APP_DY2_CHANNEL);
   formData.append('image', values.postFile[0]);
   formData.append('meta', JSON.stringify(meta));
