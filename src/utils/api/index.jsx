@@ -44,7 +44,7 @@ export const getPostDetail = async (postId) => {
 };
 
 // 포스트 작성하기
-export const sendPost = async (token, values) => {
+export const sendPost = async (values) => {
   const meta = {
     category: values.postCategory,
     description: values.postDescription,
