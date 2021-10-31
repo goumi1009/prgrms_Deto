@@ -18,6 +18,8 @@
     "import/no-unresolved": "off",
     "no-shadow": "off",
     "react/forbid-prop-types": "off",
-    "consistent-return": "off"
+    "consistent-return": "off",
+    "no-underscore-dangle": "off",
+    "label-has-associated-control": "off"
   }
 }
