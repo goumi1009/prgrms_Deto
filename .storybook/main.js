@@ -20,6 +20,7 @@ module.exports = {
     config.resolve.alias['@pages'] = path.resolve(__dirname, '../src/pages');
     config.resolve.alias['@styles'] = path.resolve(__dirname, '../src/styles');
     config.resolve.alias['@utils'] = path.resolve(__dirname, '../src/utils');
+    config.resolve.alias['@routes'] = path.resolve(__dirname, '../src/routes');
     return config;
   },
 };
