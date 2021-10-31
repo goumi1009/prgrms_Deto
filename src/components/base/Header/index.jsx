@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { useState } from 'react';
-import { PropTypes } from 'prop-types';
-import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { useAuthContext } from '@contexts/AuthProvider';
+import { Link, useLocation } from 'react-router-dom';
 import color from '@styles/color';
 import fontType from '@styles/fontType';
 
@@ -45,9 +45,18 @@ const SearchForm = styled.form`
   }
 `;
 
-const Header = ({ isLogin, isMainPage }) => {
+const Header = () => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [value, setValue] = useState('');
+  const { isLoggedIn, handleLogout } = useAuthContext();
+  const [isMainPage, setIsMainPage] = useState();
+  const location = useLocation();
+
+  useEffect(
+    () =>
+      location.pathname === '/' ? setIsMainPage(true) : setIsMainPage(false),
+    [location],
+  );
 
   const onSearchOpen = () => {
     setSearchOpen(true);
@@ -74,8 +83,11 @@ const Header = ({ isLogin, isMainPage }) => {
         <Logo>Deto</Logo>
       </Link>
       <ButtonWrapper>
-        <Link to={isLogin ? '/createPost' : '/'}>새포스트</Link>
-        {isLogin ? <Link to="/alarm">알림</Link> : undefined}
+        <button type="button" onClick={handleLogout}>
+          (임시로그아웃버튼)
+        </button>
+        <Link to={isLoggedIn ? '/createPost' : '/login'}>새포스트</Link>
+        {isLoggedIn ? <Link to="/alarm">알림</Link> : undefined}
         {isMainPage ? (
           <SearchWrapper>
             <button type="button" onClick={onSearchOpen}>
@@ -95,16 +107,6 @@ const Header = ({ isLogin, isMainPage }) => {
       </ButtonWrapper>
     </AppHeaderWrapper>
   );
-};
-
-Header.defaultProps = {
-  isLogin: false,
-  isMainPage: false,
-};
-
-Header.propTypes = {
-  isLogin: PropTypes.bool,
-  isMainPage: PropTypes.bool,
 };
 
 export default Header;

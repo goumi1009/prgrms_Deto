@@ -28,6 +28,31 @@ request.interceptors.response.use(
   },
 );
 
+// 로그인 요청 보내기
+export const login = async ({ email, password }) => {
+  const res = await request({
+    url: '/login',
+    method: 'post',
+    data: {
+      email,
+      password,
+    },
+  });
+  return res;
+};
+
+// 로그아웃
+export const logout = async () => {
+  try {
+    await request({
+      url: '/logout',
+      method: 'post',
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 // 동영 2팀 채널 포스트 목록 받기
 export const getPostList = async () => {
   const res = await request({

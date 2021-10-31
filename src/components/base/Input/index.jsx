@@ -36,8 +36,8 @@ const Input = ({
   onChange,
 }) => {
   const handleChange = (e) => {
-    const { value } = e.target;
-    onChange({ value, name: inputName });
+    const { value, name } = e.target;
+    onChange({ value, name });
   };
   return (
     <>
