@@ -115,3 +115,27 @@ export const sendComment = async (postId, comment) => {
   });
   return res;
 };
+
+// 회원가입
+export const sendSignUp = async ({ email, fullName, username, password }) => {
+  const res = await request({
+    url: '/signup',
+    method: 'post',
+    data: {
+      email,
+      fullName,
+      username,
+      password,
+    },
+  });
+  return res;
+};
+
+// 사용자 가져오기
+export const getUserList = async () => {
+  const res = await request({
+    url: `/users/get-users`,
+    method: 'get',
+  });
+  return res;
+};

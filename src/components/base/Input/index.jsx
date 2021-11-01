@@ -4,11 +4,13 @@ import color from '@styles/color';
 import fontType from '@styles/fontType';
 
 const StyledInput = styled.input`
-  width: ${(props) => `${props.width}px`};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  height: ${({ height }) =>
+    typeof height === 'number' ? `${height}px` : height};
   font-size: 16px;
   border: 1px solid ${color.border};
   border-radius: 4px;
-  padding: 8px 16px;
+  padding: 0 16px;
 
   &::placeholder {
     color: ${color.tertiary};
@@ -31,6 +33,7 @@ const Input = ({
   inputName,
   placeholder,
   width,
+  height,
   labelText,
   labelFontType,
   onChange,
@@ -52,6 +55,7 @@ const Input = ({
         name={inputName}
         placeholder={placeholder}
         width={width}
+        height={height}
         onChange={handleChange}
       />
     </>
@@ -60,7 +64,8 @@ const Input = ({
 
 Input.defaultProps = {
   placeholder: '',
-  width: 264,
+  width: '100%',
+  height: 40,
   labelText: '',
   labelFontType: 'base',
 };
@@ -70,7 +75,8 @@ Input.propTypes = {
   inputId: PropTypes.string.isRequired,
   inputName: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
-  width: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelText: PropTypes.string,
   labelFontType: PropTypes.string,
   onChange: PropTypes.func.isRequired,
