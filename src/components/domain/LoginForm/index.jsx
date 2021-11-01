@@ -52,7 +52,7 @@ const LoginForm = () => {
         onChange={handleInput}
       />
       <TextButton textProps={{ content: '로그인' }} onClick={handleSubmit} />
-      <Link to="/signup">
+      <Link to="/user/signup">
         <Text content="회원가입 하러 가기" />
       </Link>
     </StyledForm>
