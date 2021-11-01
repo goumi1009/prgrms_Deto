@@ -7,7 +7,7 @@ import CreatePostPage from '@pages/CreatePostPage';
 import NotFoundPage from '@pages/NotFoundPage';
 
 const Router = () => {
-  const { isLoggedIn } = useAuthContext();
+  const { userToken } = useAuthContext();
 
   return (
     <>
@@ -23,22 +23,22 @@ const Router = () => {
           <SignupPage />
         </Route>
         <Route exact path="/post/create">
-          {isLoggedIn ? <CreatePostPage /> : <Redirect to="/user/login" />}
+          {userToken ? <CreatePostPage /> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/post/:id">
           <h1>PostDetailPage</h1>
         </Route>
         <Route exact path="/user/:id">
-          {isLoggedIn ? <h1>UserInfoPage</h1> : <Redirect to="/user/login" />}
+          {userToken ? <h1>UserInfoPage</h1> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/user/:id/following">
-          {isLoggedIn ? <h1>FollowingPage</h1> : <Redirect to="/user/login" />}
+          {userToken ? <h1>FollowingPage</h1> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/user/:id/follower">
-          {isLoggedIn ? <h1>FollowerPage</h1> : <Redirect to="/user/login" />}
+          {userToken ? <h1>FollowerPage</h1> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/user/alarm">
-          {isLoggedIn ? <h1>AlarmPage</h1> : <Redirect to="/user/login" />}
+          {userToken ? <h1>AlarmPage</h1> : <Redirect to="/user/login" />}
         </Route>
         <Route component={NotFoundPage} />
       </Switch>

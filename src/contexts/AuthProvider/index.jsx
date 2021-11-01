@@ -7,14 +7,14 @@ const AuthContext = createContext();
 export const useAuthContext = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(() => getItem(TOKEN_KEY, ''));
+  const [userToken, setUserToken] = useState(() => getItem(TOKEN_KEY, ''));
   const [userInfo, setUserInfo] = useState();
 
   useEffect(() => {
     const authUser = async () => {
-      const userToken = getItem(TOKEN_KEY);
-      if (userToken) {
-        const user = await getAuthUser(userToken);
+      const storageToken = getItem(TOKEN_KEY);
+      if (storageToken) {
+        const user = await getAuthUser(storageToken);
         setUserInfo({
           userId: user._id,
           userProfile: user.image,
@@ -46,7 +46,7 @@ const AuthProvider = ({ children }) => {
         email: user.email,
         isOnline: user.isOnline,
       });
-      setIsLoggedIn(true);
+      setUserToken(true);
       return true;
     } catch (error) {
       alert('잘못된 이메일 또는 비밀번호입니다!');
@@ -58,7 +58,7 @@ const AuthProvider = ({ children }) => {
     try {
       await logout();
       removeItem(TOKEN_KEY);
-      setIsLoggedIn(false);
+      setUserToken(false);
       console.log('로그아웃 되었습니다.');
       // 메인페이지로 redirect
     } catch (error) {
@@ -68,7 +68,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ userInfo, isLoggedIn, handleLogin, handleLogout }}
+      value={{ userInfo, userToken, handleLogin, handleLogout }}
     >
       {children}
     </AuthContext.Provider>
