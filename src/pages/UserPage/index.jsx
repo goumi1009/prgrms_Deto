@@ -1,4 +1,3 @@
-/* eslint-disable no-underscore-dangle */
 import styled from 'styled-components';
 import { getUserDetail, getUserPost } from '@utils/api';
 import { useState, useEffect } from 'react';

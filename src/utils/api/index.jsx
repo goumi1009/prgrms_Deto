@@ -238,21 +238,3 @@ export const unfollow = async (token, followingId) => {
   });
   return res;
 };
-
-// 사용자 정보 불러오기
-export const getUserDetail = async (userId) => {
-  const res = await request({
-    url: `/users/${userId}`,
-    method: 'get',
-  });
-  return res;
-};
-
-// 특정 사용자의 포스트 목록 불러오기
-export const getUserPost = async (userId) => {
-  const res = await request({
-    url: `/posts/author/${userId}`,
-    method: 'get',
-  });
-  return res;
-};
