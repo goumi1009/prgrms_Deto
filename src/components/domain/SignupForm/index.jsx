@@ -67,7 +67,7 @@ const validate = (
   return newErrors;
 };
 
-const SignupForm = ({ onSubmit, onClick }) => {
+const SignupForm = ({ onSubmit }) => {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
   const [idCheck, setIdCheck] = useState(false);
@@ -90,7 +90,6 @@ const SignupForm = ({ onSubmit, onClick }) => {
     const newErrors = validate(values, idCheck);
     if (Object.keys(newErrors).length === 0) {
       await onSubmit(values);
-      onClick();
     }
     setErrors(newErrors);
   };
@@ -106,7 +105,7 @@ const SignupForm = ({ onSubmit, onClick }) => {
         alert('이미 사용중인 이메일 입니다.');
       }
     } else {
-      alert('이메일 양식 오류');
+      alert('올바르지 않은 이메일 양식입니다.');
     }
     return checked;
   };
@@ -188,7 +187,6 @@ const SignupForm = ({ onSubmit, onClick }) => {
 
 SignupForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  onClick: PropTypes.func.isRequired,
 };
 
 export default SignupForm;

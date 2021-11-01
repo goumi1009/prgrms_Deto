@@ -22,15 +22,16 @@ const SignupPage = () => {
   const onSubmit = async (values) => {
     const { email, fullName, username, password } = values;
     await sendSignUp({ email, fullName, username, password });
+    setIsVisible(true);
   };
 
   return (
     <PageWrapper>
       <h1>회원가입</h1>
-      <SignupForm onSubmit={onSubmit} onClick={() => setIsVisible(true)} />
+      <SignupForm onSubmit={onSubmit} />
       <Modal isVisible={isVisible}>
         <Alert
-          textProps={{ content: '작성을 완료하시겠습니까?' }}
+          textProps={{ content: '회원가입에 성공하였습니다!' }}
           buttons={[
             {
               textProps: { content: '확인' },
