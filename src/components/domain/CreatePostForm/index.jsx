@@ -52,9 +52,6 @@ const CreatePostForm = () => {
   const [alertVisible, setAlertVisible] = useState(false);
   const history = useHistory();
 
-  // state 확인을 위한 임시 console
-  console.log('현재 state: ', values);
-
   const handleCategory = ({ selected, name }) => {
     if (selected) {
       setValues({ ...values, postCategory: [...values.postCategory, name] });
@@ -131,6 +128,7 @@ const CreatePostForm = () => {
         onChange={handleChange}
       />
       <TextButton
+        name="techStackButton"
         textProps={{ content: '사용된 기술 스택' }}
         size={264}
         color="border"
@@ -169,12 +167,14 @@ const CreatePostForm = () => {
         {createFileContainer}
       </Uploader>
       <ToggleButton
+        name="collaboButton"
         text="협업 제안 허용하기"
         size={264}
         toggleColor={color.green}
         onToggle={handleCollabo}
       />
       <TextButton
+        name="submitButton"
         textProps={{ content: '완료' }}
         size={264}
         color="tertiary"

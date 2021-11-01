@@ -26,12 +26,16 @@ const Textarea = ({
 }) => {
   const handleChange = (e) => {
     const { value } = e.target;
+    if (value.length > 300) {
+      alert('글자 수를 초과하였습니다. (최대 300자)');
+      return;
+    }
     onChange({ value, name: textareaName });
   };
   return (
     <>
       {labelText ? (
-        <StyledLabel for={textareaId} fontType={labelFontType}>
+        <StyledLabel htmlFor={textareaId} fontType={labelFontType}>
           {labelText}
         </StyledLabel>
       ) : null}

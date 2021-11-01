@@ -53,8 +53,8 @@ Modal.defaultProps = {
 
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   isVisible: PropTypes.bool,
   onClose: PropTypes.string.isRequired,
 };

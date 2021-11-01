@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import ToggleButton from '@components/base/ToggleButton';
@@ -9,16 +10,17 @@ const ButtonContainer = styled.div`
 
 const CategoryButtons = ({ categoryList, onToggle }) => (
   <ButtonContainer>
-    {categoryList.map((category) => (
-      <ToggleButton
-        key={category}
-        text={category}
-        name={category}
-        size={49}
-        toggleColor={color.green}
-        onToggle={onToggle}
-      />
-    ))}
+    {React.Children.toArray(
+      categoryList.map((category) => (
+        <ToggleButton
+          text={category}
+          name={category}
+          size={49}
+          toggleColor={color.green}
+          onToggle={onToggle}
+        />
+      )),
+    )}
   </ButtonContainer>
 );
 CategoryButtons.propTypes = {
