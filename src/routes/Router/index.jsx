@@ -2,6 +2,7 @@ import { Route, Switch, Redirect } from 'react-router';
 import { useAuthContext } from '@contexts/AuthProvider';
 import Header from '@components/base/Header';
 import LoginPage from '@pages/LoginPage';
+import CreatePostPage from '@pages/CreatePostPage';
 import NotFoundPage from '@pages/NotFoundPage';
 
 const Router = () => {
@@ -21,7 +22,7 @@ const Router = () => {
           <h1>SignupPage</h1>
         </Route>
         <Route exact path="/post/create">
-          {isLoggedIn ? <h1>CreatePostPage</h1> : <Redirect to="/user/login" />}
+          {isLoggedIn ? <CreatePostPage /> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/post/:id">
           <h1>PostDetailPage</h1>

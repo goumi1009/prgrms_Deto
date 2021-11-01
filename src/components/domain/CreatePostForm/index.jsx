@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import CategoryButtons from '@components/domain/CategoryButtons';
 import Input from '@components/base/Input';
@@ -7,9 +8,21 @@ import ToggleButton from '@components/base/ToggleButton';
 import TextButton from '@components/base/TextButton';
 import Alert from '@components/base/Alert';
 import Modal from '@components/base/Modal';
+import IconCheckForm from '@components/domain/IconCheckForm';
 import Uploader from '@components/base/Uploader';
 import color from '@styles/color';
 import { sendPost } from '@utils/api';
+
+const categoryList = ['재미', '커뮤니티', '라이프', '교육', '개발', '기타'];
+const iconList = [
+  { src: 'https://picsum.photos/200?1', name: 'Vue' },
+  { src: 'https://picsum.photos/200?2', name: 'React' },
+  { src: 'https://picsum.photos/200?3', name: 'Java' },
+  { src: 'https://picsum.photos/200?4', name: 'JavaScript' },
+  { src: 'https://picsum.photos/200?5', name: 'Node.js' },
+  { src: 'https://picsum.photos/200?6', name: 'TypeScript' },
+  { src: 'https://picsum.photos/200?7', name: 'Python' },
+];
 
 const FormContainer = styled.div`
   display: flex;
@@ -24,8 +37,6 @@ const FileContainer = styled.div`
   border-color: ${(props) => (props.dragging ? color.green : color.border)};
 `;
 
-const categoryList = ['재미', '커뮤니티', '라이프', '교육', '개발', '기타'];
-
 const CreatePostForm = () => {
   const [values, setValues] = useState({
     postCategory: [],
@@ -39,6 +50,7 @@ const CreatePostForm = () => {
   });
   const [stackVisible, setStackVisible] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
+  const history = useHistory();
 
   // state 확인을 위한 임시 console
   console.log('현재 state: ', values);
@@ -54,6 +66,13 @@ const CreatePostForm = () => {
         ),
       });
     }
+  };
+
+  const handleTechStack = (selected) => {
+    setValues({
+      ...values,
+      postTechStack: [...values.postTechStack, ...selected],
+    });
   };
 
   const handleCollabo = ({ selected }) => {
@@ -77,9 +96,8 @@ const CreatePostForm = () => {
   };
 
   const submitForm = async () => {
-    // 완료 클릭하면,
-    // 유저 정보 페이지로 redirect
     await sendPost(values);
+    history.push('/');
   };
 
   const createFileContainer = (files, dragging, width, height) => (
@@ -119,7 +137,11 @@ const CreatePostForm = () => {
         onClick={handleStackModal}
       />
       <Modal isVisible={stackVisible}>
-        <>기술 스택 리스트 들어갈 자리</>
+        <IconCheckForm
+          iconList={iconList}
+          onToggle={handleTechStack}
+          onClose={handleStackModal}
+        />
       </Modal>
       <Input
         inputType="url"

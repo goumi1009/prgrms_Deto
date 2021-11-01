@@ -24,7 +24,8 @@ const IconCheckForm = ({
     { src: 'https://picsum.photos/200?6', name: 'TypeScript' },
     { src: 'https://picsum.photos/200?7', name: 'Python' },
   ],
-  getValue, // 상위컴포넌트 함수. 데이터 넘겨주기 위해. 이 함수에 모달 닫아주는 처리도 함께 있어야함.
+  onToggle,
+  onClose,
 }) => {
   const [values, setValues] = useState([]);
 
@@ -37,7 +38,8 @@ const IconCheckForm = ({
   };
 
   const handleSubmit = () => {
-    getValue(values);
+    onToggle(values);
+    onClose();
   };
 
   return (
@@ -64,7 +66,8 @@ const IconCheckForm = ({
 
 IconCheckForm.propTypes = {
   iconList: PropTypes.array.isRequired,
-  getValue: PropTypes.func.isRequired,
+  onToggle: PropTypes.func.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default IconCheckForm;
