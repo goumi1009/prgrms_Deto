@@ -1,10 +1,7 @@
 import axios from 'axios';
+import { TOKEN_KEY, getItem } from '@utils/storage';
 
-const {
-  REACT_APP_API_ENDPOINT,
-  REACT_APP_DY2_CHANNEL,
-  REACT_APP_TEST_TOKEN,
-} = process.env;
+const { REACT_APP_API_ENDPOINT, REACT_APP_DY2_CHANNEL } = process.env;
 
 const request = axios.create({
   baseURL: REACT_APP_API_ENDPOINT,
@@ -43,14 +40,22 @@ export const login = async ({ email, password }) => {
 
 // 로그아웃
 export const logout = async () => {
-  try {
-    await request({
-      url: '/logout',
-      method: 'post',
-    });
-  } catch (error) {
-    console.log(error);
-  }
+  await request({
+    url: '/logout',
+    method: 'post',
+  });
+};
+
+// 사용자 인증
+export const getAuthUser = async (token) => {
+  const res = await request({
+    url: '/auth-user',
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
 };
 
 // 동영 2팀 채널 포스트 목록 받기
@@ -69,7 +74,7 @@ export const getPostDetail = async (postId) => {
 };
 
 // 포스트 작성하기
-export const sendPost = async (values) => {
+export const sendPost = async (token, values) => {
   const title = {
     category: values.postCategory,
     techStack: values.postTechStack,
@@ -93,24 +98,70 @@ export const sendPost = async (values) => {
     method: 'post',
     headers: {
       'Content-Type': 'multipart/form-data',
-      Authorization: `Bearer ${REACT_APP_TEST_TOKEN}`,
+      Authorization: `Bearer ${token}`,
     },
     data: formData,
   });
   return res;
 };
 
-// 특정 포스트에 댓글 작성하기
-export const sendComment = async (postId, comment) => {
+// 특정 포스트에 댓글 달기
+export const sendComment = async (token, postId, comment) => {
   const res = await request({
     url: `/comments/create`,
     method: 'post',
     headers: {
-      Authorization: `Bearer ${REACT_APP_TEST_TOKEN}`,
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      comment,
+      postId,
+    },
+  });
+  return res;
+};
+
+// 특정 포스트에 댓글 삭제하기
+export const deleteComment = async (id) => {
+  const token = getItem(TOKEN_KEY);
+  const res = await request({
+    url: `/comments/delete`,
+    method: 'delete',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      id,
+    },
+  });
+  return res;
+};
+
+// 특정 포스트 좋아요
+export const sendLike = async (token, postId) => {
+  const res = await request({
+    url: '/likes/create',
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
     data: {
       postId,
-      comment,
+    },
+  });
+  return res;
+};
+
+// 특정 포스트 좋아요 취소
+export const deleteLike = async (token, likeId) => {
+  const res = await request({
+    url: '/likes/delete',
+    method: 'delete',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      id: likeId,
     },
   });
   return res;
@@ -131,11 +182,59 @@ export const sendSignUp = async ({ email, fullName, username, password }) => {
   return res;
 };
 
-// 사용자 가져오기
+// 전체 사용자 목록 가져오기
 export const getUserList = async () => {
   const res = await request({
-    url: `/users/get-users`,
+    url: '/users/get-users',
     method: 'get',
+  });
+  return res;
+};
+
+// 특정 사용자 정보 불러오기
+export const getUserDetail = async (userId) => {
+  const res = await request({
+    url: `/users/${userId}`,
+    method: 'get',
+  });
+  return res;
+};
+
+// 특정 사용자의 포스트 목록 불러오기
+export const getUserPost = async (userId) => {
+  const res = await request({
+    url: `/posts/author/${userId}`,
+    method: 'get',
+  });
+  return res;
+};
+
+// 팔로우 하기
+export const follow = async (token, userId) => {
+  const res = await request({
+    url: '/follow/create',
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      userId,
+    },
+  });
+  return res;
+};
+
+// 언팔 하기
+export const unfollow = async (token, followingId) => {
+  const res = await request({
+    url: '/follow/delete',
+    method: 'delete',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      id: followingId,
+    },
   });
   return res;
 };

@@ -1,5 +1,7 @@
 const storage = window.sessionStorage;
 
+export const TOKEN_KEY = 'token';
+
 export const getItem = (key, initialValue) => {
   try {
     const item = storage.getItem(key);
