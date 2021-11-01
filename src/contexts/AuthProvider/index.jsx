@@ -8,7 +8,7 @@ export const useAuthContext = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(() => getItem(TOKEN_KEY, ''));
-  const [userInfo, setUserInfo] = useState();
+  const [userInfo, setUserInfo] = useState({});
 
   useEffect(() => {
     const authUser = async () => {
