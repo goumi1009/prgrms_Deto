@@ -23,6 +23,7 @@ const Textarea = ({
   width,
   height,
   onChange,
+  value,
 }) => {
   const handleChange = (e) => {
     const { value } = e.target;
@@ -45,6 +46,7 @@ const Textarea = ({
         width={width}
         height={height}
         onChange={handleChange}
+        value={value}
       />
     </>
   );
@@ -60,6 +62,7 @@ Textarea.defaultProps = {
 Textarea.propTypes = {
   textareaId: PropTypes.string.isRequired,
   textareaName: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
   labelText: PropTypes.string,
   labelFontType: PropTypes.string,
   width: PropTypes.number,
