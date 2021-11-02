@@ -6,6 +6,7 @@
   ],
   "plugins": ["stylelint-prettier"],
   "rules": {
-    "prettier/prettier": true
+    "prettier/prettier": true,
+    "value-keyword-case": null
   }
 }
