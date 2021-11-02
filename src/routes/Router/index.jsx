@@ -4,6 +4,8 @@ import Header from '@components/base/Header';
 import LoginPage from '@pages/LoginPage';
 import SignupPage from '@pages/SignupPage';
 import CreatePostPage from '@pages/CreatePostPage';
+import FollowingPage from '@pages/FollowingPage';
+import UserPage from '@pages/UserPage';
 import NotFoundPage from '@pages/NotFoundPage';
 import PostDetailPage from '@pages/PostDetailPage';
 
@@ -30,10 +32,10 @@ const Router = () => {
           <PostDetailPage />
         </Route>
         <Route exact path="/user/:id">
-          {userToken ? <h1>UserInfoPage</h1> : <Redirect to="/user/login" />}
+          {userToken ? <UserPage /> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/user/:id/following">
-          {userToken ? <h1>FollowingPage</h1> : <Redirect to="/user/login" />}
+          {userToken ? <FollowingPage /> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/user/:id/follower">
           {userToken ? <h1>FollowerPage</h1> : <Redirect to="/user/login" />}
