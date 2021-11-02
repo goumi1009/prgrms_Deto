@@ -12,6 +12,7 @@ import IconCheckForm from '@components/domain/IconCheckForm';
 import Uploader from '@components/base/Uploader';
 import color from '@styles/color';
 import { sendPost } from '@utils/api';
+import { useAuthContext } from '@contexts/AuthProvider';
 
 const categoryList = ['재미', '커뮤니티', '라이프', '교육', '개발', '기타'];
 const iconList = [
@@ -50,6 +51,7 @@ const CreatePostForm = () => {
   });
   const [stackVisible, setStackVisible] = useState(false);
   const [alertVisible, setAlertVisible] = useState(false);
+  const { userToken } = useAuthContext();
   const history = useHistory();
 
   const handleCategory = ({ selected, name }) => {
@@ -93,7 +95,7 @@ const CreatePostForm = () => {
   };
 
   const submitForm = async () => {
-    await sendPost(values);
+    await sendPost(userToken, values);
     history.push('/');
   };
 

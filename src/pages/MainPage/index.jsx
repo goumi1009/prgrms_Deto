@@ -1,10 +1,11 @@
 import CategoryNav from '@components/domain/CategoryNav';
+import PageWrapper from '@components/base/PageWrapper';
+import PostList from '@components/domain/PostList';
 import { useState, useEffect } from 'react';
 import { getPostList } from '@utils/api';
 
 const MainPage = () => {
   const [postList, setPostList] = useState();
-  console.log('PostList 컴포넌트에 내려줄 state', postList);
 
   const formatPost = (postList) =>
     postList.map((post) => {
@@ -19,9 +20,9 @@ const MainPage = () => {
         likes: post.likes.length,
         title: meta.title,
         description: meta.description,
-        // 유저 프로필 임시
-        userProfile: 'https://via.placeholder.com/48x48.png?text=Profile',
-        userName: post.author.username,
+        userProfile:
+          'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png',
+        username: post.author.username,
         updatedAt: post.updatedAt,
       };
     });
@@ -29,7 +30,7 @@ const MainPage = () => {
   useEffect(() => {
     const initPostList = async () => {
       const defaultPostList = await getPostList();
-      setPostList(defaultPostList);
+      setPostList(formatPost(defaultPostList));
     };
 
     initPostList();
@@ -48,7 +49,14 @@ const MainPage = () => {
     }
   };
 
-  return <CategoryNav onSelect={handleCategory} />;
+  return (
+    <>
+      <CategoryNav onSelect={handleCategory} />
+      <PageWrapper>
+        {postList ? <PostList postList={postList} /> : undefined}
+      </PageWrapper>
+    </>
+  );
 };
 
 export default MainPage;

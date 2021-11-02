@@ -33,6 +33,9 @@ const Avatar = ({
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
+    if (!src)
+      src =
+        'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png';
     const image = new Image();
     image.src = src;
     image.onload = () => setLoaded(true);
@@ -60,7 +63,10 @@ Avatar.defaultProps = {
   isLazy: false,
   threshold: 0,
   size: 32,
-  placeholder: '',
+  placeholder:
+    'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png',
+  src:
+    'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png',
   alt: '',
   mode: 'cover',
 };
@@ -68,7 +74,7 @@ Avatar.defaultProps = {
 Avatar.propTypes = {
   isLazy: PropTypes.bool,
   threshold: PropTypes.number,
-  src: PropTypes.string.isRequired,
+  src: PropTypes.string,
   size: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   alt: PropTypes.string,
   mode: PropTypes.string,

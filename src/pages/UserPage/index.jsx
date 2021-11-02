@@ -13,18 +13,19 @@ const PageContainer = styled.div`
 `;
 
 const UserPage = () => {
-  const { userId } = useParams();
+  const { id: userId } = useParams();
   const [userData, setUserData] = useState();
-  const [postData, setPostData] = useState();
+  const [postList, setPostList] = useState();
 
   const userInfoProp = (user, level) => ({
-    image: user.image ? user.image : 'https://picsum.photos/200/400',
+    image: user.image
+      ? user.image
+      : 'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png',
     username: user.username,
     level,
     followerCount: user.followers.length,
     followingCount: user.following.length,
-    followers: `following/${user._id}`,
-    following: `follower/${user._id}`,
+    followers: user.followers,
     userId: user._id,
   });
 
@@ -41,23 +42,27 @@ const UserPage = () => {
         likes: post.likes.length,
         title: meta.title,
         description: meta.description,
-        userProfile: 'https://via.placeholder.com/48x48.png?text=Profile',
+        userProfile:
+          'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png',
         username: post.author.username,
         updatedAt: post.updatedAt ? post.updatedAt : post.createdAt,
       };
     });
 
-  useEffect(async () => {
-    const postDetail = await getUserPost(userId);
-    setPostData(postListProp(postDetail));
-    const userDetail = await getUserDetail(userId);
-    setUserData(userInfoProp(userDetail, postDetail.length));
+  useEffect(() => {
+    const initData = async () => {
+      const postDetail = await getUserPost(userId);
+      setPostList(postListProp(postDetail));
+      const userDetail = await getUserDetail(userId);
+      setUserData(userInfoProp(userDetail, postDetail.length));
+    };
+    initData();
   }, []);
 
   return (
     <PageContainer>
       {userData ? <UserInfo {...userData} /> : undefined}
-      {postData ? <PostList postDetails={postData} /> : undefined}
+      {postList ? <PostList postList={postList} /> : undefined}
     </PageContainer>
   );
 };

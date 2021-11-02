@@ -1,20 +1,24 @@
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import color from '@styles/color';
+import fontType from '@styles/fontType';
 import Image from '@components/base/Image';
 import Text from '@components/base/Text';
 import ProfileBox from '@components/base/ProfileBox';
-import Avatar from '@components/base/Avatar';
-import { Link } from 'react-router-dom';
+import Icon from '@components/base/Icon';
 
 const PostContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 600px;
+  max-width: 500px;
+  padding: 16px;
+  border-radius: 4px;
+  box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+  margin: 0 auto 16px;
 `;
 
-const PostUser = styled.div`
+const PostUserLink = styled(Link)`
   display: flex;
-  flex-direction: row;
+  align-items: center;
   justify-content: space-between;
 `;
 
@@ -32,23 +36,36 @@ const StackWrapper = styled.div`
 
 const ThunmbnailWrapper = styled.div`
   position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  height: 270px;
+  margin: 8px 0 16px;
 `;
 
 const CategoryWrapper = styled.div`
-  border: 1px solid #bcbcbc;
-  border-radius: 15px;
   padding: 3px;
+  ${fontType.micro};
+  border-radius: 15px;
+  background: ${color.border};
+  font-weight: bold;
+  padding: 4px 12px;
+  color: ${color.secondary};
 `;
 
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  span {
+    margin-bottom: 8px;
+  }
 `;
 
 const LikeWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
+  i {
+    margin-right: 4px;
+  }
 `;
 
 const CategoryLikeWrapper = styled.div`
@@ -73,39 +90,46 @@ const PostItem = ({
   ...props
 }) => {
   const categories =
-    category.length >= 2
+    (category || []).length >= 2
       ? `${category[0]} 외 ${category.length - 1}개`
       : category[0];
-  const likeIcon = 'https://picsum.photos/200'; // likeIcon 들어갈 자리
 
   return (
     <PostContainer {...props}>
-      <Link to={`/userPage/${userId}`}>
-        <PostUser>
-          <ProfileBox src={userProfile} content={username} />
-          <Text content={updatedAt} />
-        </PostUser>
-      </Link>
+      <PostUserLink to={`/user/${userId}`}>
+        <ProfileBox
+          size={32}
+          src={userProfile}
+          content={username}
+          fontType="small"
+          color="primary"
+        />
+        <Text
+          content={updatedAt.split('T')[0]}
+          fontType="micro"
+          color="secondary"
+        />
+      </PostUserLink>
       <Link to={`/post/${postId}`}>
         <ThunmbnailWrapper>
           <StackWrapper>
             <StackContainer>
               {techStack.map((tech) => (
-                <Text content={tech} />
+                <Text key={tech} content={tech} />
               ))}
             </StackContainer>
           </StackWrapper>
-          <Image src={image} width="600px" height="300px" />
+          <Image src={image} width="100%" height="100%" />
         </ThunmbnailWrapper>
         <TextContainer>
-          <Text content={title} fontType="large" />
-          <Text content={description} />
+          <Text content={title} fontType="base" strong />
+          <Text content={description} fontType="small" color="secondary" />
         </TextContainer>
         <CategoryLikeWrapper>
           <CategoryWrapper>{categories}</CategoryWrapper>
           <LikeWrapper>
-            <Avatar src={likeIcon} width="30px" />
-            <Text content={likes} />
+            <Icon name="thumbs-up" size={20} color={color.secondary} />
+            <Text content={likes} color="secondary" fontType="small" />
           </LikeWrapper>
         </CategoryLikeWrapper>
       </Link>
@@ -113,8 +137,12 @@ const PostItem = ({
   );
 };
 
+// PostItem.defaultProps = {
+//   userProfile: 'https://picsum.photos/200/400',
+// };
+
 PostItem.defaultProps = {
-  userProfile: 'https://picsum.photos/200/400',
+  userProfile: '',
 };
 
 PostItem.propTypes = {

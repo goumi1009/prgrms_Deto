@@ -36,33 +36,37 @@ const PostDetailPage = () => {
   useEffect(() => {
     const postDetail = async () => {
       const res = await getPostDetail(id);
-      const titleJson = JSON.parse(res.title);
-      const metaJson = JSON.parse(res.meta);
-      const lll = {
+      const { category, techStack } = JSON.parse(res.title);
+      const { title, description, deployLink, githubLink } = JSON.parse(
+        res.meta,
+      );
+      const filteredPostData = {
         postId: res._id,
         userName: res.author.username,
-        userProfile: '',
-        category: titleJson.category,
-        title: metaJson.title,
-        description: metaJson.description,
-        techStack: titleJson.techstack,
-        deployLink: metaJson.deployLink,
-        githubLInk: metaJson.githubLInk,
+        userProfile:
+          'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png',
+        category,
+        title,
+        description,
+        techStack,
+        deployLink,
+        githubLink,
         image: res.image,
-        updatedAt: res.updatedAt,
+        updatedAt: res.updatedAt.split('T')[0],
         likes: res.likes,
         likesCount: res.likes.length,
         comments: res.comments,
+        userId: res.author._id,
       };
-      setPostData(lll);
+      setPostData(filteredPostData);
     };
 
     postDetail();
   }, []);
 
-  const loadLikeid = () => {
+  const loadLikeId = () => {
     const likedIdFilter = userInfo.likes.filter((like) => like.post === id);
-    return likedIdFilter[0]._id;
+    return likedIdFilter.length ? likedIdFilter[0]._id : [];
   };
 
   useEffect(() => {
@@ -72,28 +76,23 @@ const PostDetailPage = () => {
   useEffect(() => {
     if (userInfo?.likes?.length) {
       setIsLiked(userInfo.likes.some((like) => like.post === id));
-      setLikeId(loadLikeid());
+      setLikeId(loadLikeId());
     }
   }, [userInfo]);
 
-  // 좋아요 클릭
   const likeClick = () => {
-    // state에 따라 좋아요 생성하거나 삭제하기
     if (isLiked) {
-      // 좋아요 취소
       deleteLike(userToken, likeId);
       setIsLiked(false);
       setPostData({ ...postData, likesCount: postData.likesCount - 1 });
     } else {
-      // 좋아요
       sendLike(userToken, id).then((res) => setLikeId(res._id));
       setIsLiked(true);
       setPostData({ ...postData, likesCount: postData.likesCount + 1 });
     }
   };
 
-  // 댓글 등록
-  const handleSubmit = useCallback(
+  const handleCommentSubmit = useCallback(
     async (value) => {
       const sendData = JSON.stringify(value);
       const addComment = await sendComment(userToken, id, sendData);
@@ -102,7 +101,6 @@ const PostDetailPage = () => {
     [comments],
   );
 
-  // 댓글 삭제
   const handleCommentDelete = useCallback(
     async (commentId) => {
       const delComment = await deleteComment(commentId);
@@ -114,13 +112,12 @@ const PostDetailPage = () => {
     [comments],
   );
 
-  // 댓글 작성자 유무 체크
   const commentAuthorCheck = useCallback(
     (currentComment) => {
       if (userInfo) {
-        const isAuthor = userInfo.comments.some(
-          (comment) => comment === currentComment,
-        );
+        const isAuthor =
+          userInfo.comments &&
+          userInfo.comments.some((comment) => comment === currentComment);
         return isAuthor;
       }
     },
@@ -130,7 +127,7 @@ const PostDetailPage = () => {
   return (
     <PageStyle>
       <PostInfo postData={postData} onClick={likeClick} isLiked={isLiked} />
-      <CommentForm onSubmit={handleSubmit} />
+      <CommentForm onSubmit={handleCommentSubmit} />
       <CommentList>
         {(comments || []).map((comment) => {
           const { type, text } = JSON.parse(comment.comment);

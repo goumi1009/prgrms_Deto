@@ -5,7 +5,6 @@ const { REACT_APP_API_ENDPOINT, REACT_APP_DY2_CHANNEL } = process.env;
 
 const request = axios.create({
   baseURL: REACT_APP_API_ENDPOINT,
-  timeout: 3000,
   headers: { 'Content-Type': 'application/json' },
 });
 
@@ -236,6 +235,51 @@ export const unfollow = async (followingId) => {
     },
     data: {
       id: followingId,
+    },
+  });
+  return res;
+};
+
+// 알림 목록 조회
+export const getNotifications = async (token) => {
+  const res = await request({
+    url: 'notifications',
+    method: 'get',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res;
+};
+
+// 알림 생성
+export const postNotifications = async (
+  token,
+  { notificationType, notificationTypeId, userId, postId },
+) => {
+  const res = await request({
+    url: '/notifications/create',
+    method: 'post',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      notificationType,
+      notificationTypeId,
+      userId,
+      postId,
+    },
+  });
+  return res;
+};
+
+// 알림 모두 읽음 처리
+export const readNotifications = async (token) => {
+  const res = await request({
+    url: '/notifications/seen',
+    method: 'put',
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
   return res;

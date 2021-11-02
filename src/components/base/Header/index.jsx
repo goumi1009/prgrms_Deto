@@ -4,20 +4,21 @@ import { useAuthContext } from '@contexts/AuthProvider';
 import { Link, useLocation } from 'react-router-dom';
 import color from '@styles/color';
 import fontType from '@styles/fontType';
-import Icon from '@components/base/icon';
+import Icon from '@components/base/Icon';
 import Text from '@components/base/Text';
 import ProfileBox from '@components/base/ProfileBox';
 
 const AppHeaderWrapper = styled.div`
   display: flex;
+  position: relative;
   width: 100%;
   margin: 0 auto;
   max-width: 1120px;
-  padding: 0 30px;
+  padding: 0 20px;
   height: 50px;
   align-items: center;
   border-bottom: 1px solid ${color.border};
-  position: relative;
+  background: ${color.white};
 `;
 
 const Logo = styled.h1`
@@ -205,18 +206,18 @@ const Header = () => {
     const { value } = e.target;
     setValue(value);
   };
-  // console.log(userToken, userInfo);
+
   return (
     <AppHeaderWrapper>
       <Logo>
         <Link to="/">Deto</Link>
       </Logo>
       <ButtonWrapper>
-        <IconLink to={userToken ? '/post/create' : '/login'}>
+        <IconLink to={userToken ? '/post/create' : '/user/login'}>
           <Icon name="plus-square" color={color.secondary} />
         </IconLink>
         {userToken ? (
-          <IconLink to="/user/alarm">
+          <IconLink to="/user/notification">
             <Icon name="bell" color={color.secondary} />
           </IconLink>
         ) : undefined}
@@ -286,7 +287,5 @@ const Header = () => {
     </AppHeaderWrapper>
   );
 };
-
-// name, size, strokeWidth, color, rotate
 
 export default Header;

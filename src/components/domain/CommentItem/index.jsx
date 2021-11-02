@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { PropTypes } from 'prop-types';
 import ProfileBox from '@components/base/ProfileBox';
 import Text from '@components/base/Text/index';
-import Icon from '@components/base/icon';
+import Icon from '@components/base/Icon';
 import color from '@styles/color';
 
 const ItemStyle = styled.li`
@@ -71,7 +71,8 @@ const CommentItem = ({
 );
 
 CommentItem.defaultProps = {
-  authorProfile: 'https://via.placeholder.com/150',
+  authorProfile:
+    'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png',
 };
 
 CommentItem.propTypes = {

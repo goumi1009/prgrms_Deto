@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import fontType from '@styles/fontType';
 import color from '@styles/color';
 import PropTypes from 'prop-types';
 import Input from '@components/base/Input';
@@ -8,11 +9,17 @@ import { getUserList } from '@utils/api';
 
 const FormStyle = styled.form`
   display: block;
+  width: 100%;
   max-width: 500px;
   border-radius: 10px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  padding: 40px;
-  margin: 30px auto;
+  padding: 30px;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    ${fontType.large}
+  }
 `;
 
 const ErrorText = styled.p`
@@ -37,11 +44,38 @@ const InputRow = styled.div`
   }
 
   button {
+    position: relative;
     flex-shrink: 0;
+    width: 80px;
+    overflow: hidden;
+    span {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      transition: 0.3s ease-in;
+    }
+    &::after {
+      content: '✔';
+      display: block;
+      position: absolute;
+      top: 60px;
+      left: 46%;
+      transition: 0.3s ease-in;
+    }
 
     &:disabled {
-      background: ${color.border};
-      cursor: default;
+      opacity: 1;
+      overflow: hidden;
+      position: relative;
+      background: ${color.green};
+      span {
+        top: -60px;
+      }
+      &::after {
+        top: 23%;
+      }
     }
   }
 `;
@@ -112,6 +146,7 @@ const SignupForm = ({ onSubmit }) => {
 
   return (
     <FormStyle onSubmit={handleSubmit}>
+      <h2>회원가입</h2>
       <InputRow>
         <Input
           labelText="이메일"
@@ -126,6 +161,8 @@ const SignupForm = ({ onSubmit }) => {
           textProps={{ content: '중복체크', color: 'white', strong: true }}
           disabled={idCheck}
           onClick={handleChekClick}
+          width="auto"
+          color="secondary"
         />
       </InputRow>
       <InputRow>
@@ -172,12 +209,13 @@ const SignupForm = ({ onSubmit }) => {
           onChange={handleChange}
         />
       </InputRow>
-      <InputRow>
-        <TextButton
-          textProps={{ content: '회원가입', color: 'white', strong: true }}
-          type="submit"
-        />
-      </InputRow>
+      <TextButton
+        textProps={{ content: '회원가입', color: 'white', strong: true }}
+        type="submit"
+        width="100%"
+        height={48}
+        color="gradient"
+      />
       {errors.empty ?? <ErrorText>{errors.empty}</ErrorText>}
       {errors.passwordCheck ?? <ErrorText>{errors.passwordCheck}</ErrorText>}
       {errors.email ?? <ErrorText>{errors.email}</ErrorText>}

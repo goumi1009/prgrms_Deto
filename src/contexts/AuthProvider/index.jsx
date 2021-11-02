@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext, createContext } from 'react';
+import { useHistory } from 'react-router';
 import { login, logout, getAuthUser } from '@utils/api';
 import { TOKEN_KEY, setItem, getItem, removeItem } from '@utils/storage';
 import PropTypes from 'prop-types';
@@ -9,6 +10,7 @@ export const useAuthContext = () => useContext(AuthContext);
 const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(() => getItem(TOKEN_KEY, ''));
   const [userInfo, setUserInfo] = useState({});
+  const history = useHistory();
 
   useEffect(() => {
     const authUser = async () => {
@@ -59,8 +61,7 @@ const AuthProvider = ({ children }) => {
       await logout();
       removeItem(TOKEN_KEY);
       setUserToken(false);
-      console.log('로그아웃 되었습니다.');
-      // 메인페이지로 redirect
+      history.replace('/');
     } catch (error) {
       console.log(error);
     }

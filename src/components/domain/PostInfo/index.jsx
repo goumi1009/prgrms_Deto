@@ -7,7 +7,7 @@ import ProfileBox from '@components/base/ProfileBox';
 import Text from '@components/base/Text';
 import Image from '@components/base/Image';
 import Avatar from '@components/base/Avatar';
-import Icon from '@components/base/icon';
+import Icon from '@components/base/Icon';
 
 const PostInfoWrapper = styled.div`
   margin-bottom: 16px;
@@ -109,11 +109,13 @@ const PostInfo = ({ postData, onClick, isLiked }) => {
     description,
     techStack,
     deployLink,
-    githubLInk,
+    githubLink,
     image,
     updatedAt,
     likesCount,
+    userId,
   } = postData;
+
   return (
     <PostInfoWrapper>
       <CategoryList>
@@ -128,7 +130,7 @@ const PostInfo = ({ postData, onClick, isLiked }) => {
       </CategoryList>
       <ImageWrapper>{image ? <Image src={image} /> : undefined}</ImageWrapper>
       <CreateInfo>
-        <Link to="userpage/:userid">
+        <Link to={`/user/${userId}`}>
           <ProfileBox
             src={userProfile || ''}
             size={48}
@@ -161,8 +163,8 @@ const PostInfo = ({ postData, onClick, isLiked }) => {
         <PlayLink href={deployLink} target="_blank">
           Play
         </PlayLink>
-        {githubLInk ? (
-          <GithubLInk href={githubLInk} target="_blank" rel="noreferrer">
+        {githubLink ? (
+          <GithubLInk href={githubLink} target="_blank" rel="noreferrer">
             CODE
           </GithubLInk>
         ) : undefined}

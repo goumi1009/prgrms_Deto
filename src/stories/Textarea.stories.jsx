@@ -5,4 +5,6 @@ export default {
   component: Textarea,
 };
 
-export const Default = (args) => <Textarea {...args} />;
+export const Default = (args) => (
+  <Textarea {...args} labelText="라벨" placeholder="텍스트를 입력해주세요" />
+);

@@ -1,17 +1,23 @@
 import { useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link } from 'react-router-dom';
 import styled from 'styled-components';
+import PageWrapper from '@components/base/PageWrapper';
 import SignupForm from '@components/domain/SignupForm';
 import Modal from '@components/base/Modal';
 import Alert from '@components/base/Alert';
+import Logo from '@components/base/Logo/index';
 import { sendSignUp } from '@utils/api';
 
-const PageWrapper = styled.div`
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 40px 30px;
-  h1 {
-    text-align: center;
+const FullPageWrapper = styled(PageWrapper)`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  height: 100vh;
+
+  > a {
+    margin-top: -80px;
   }
 `;
 
@@ -26,8 +32,10 @@ const SignupPage = () => {
   };
 
   return (
-    <PageWrapper>
-      <h1>회원가입</h1>
+    <FullPageWrapper>
+      <Link to="/">
+        <Logo size={50} />
+      </Link>
       <SignupForm onSubmit={onSubmit} />
       <Modal isVisible={isVisible}>
         <Alert
@@ -41,7 +49,7 @@ const SignupPage = () => {
           ]}
         />
       </Modal>
-    </PageWrapper>
+    </FullPageWrapper>
   );
 };
 

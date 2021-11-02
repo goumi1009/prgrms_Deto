@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import ProfileBox from '@components/base/ProfileBox';
 import Text from '@components/base/Text';
 import TextButton from '@components/base/TextButton/index';
 import color from '@styles/color';
+import { useAuthContext } from '@contexts/AuthProvider';
 
 const UserInfoWrapper = styled.div`
   max-width: 400px;
@@ -31,30 +33,35 @@ const UserInfo = ({
   level,
   image,
   followers,
-  following,
   userId,
   followerCount,
   followingCount,
 }) => {
-  const nowUserId = '123';
-  let text = '';
-
-  if (userId === nowUserId) {
-    text = 'Edit';
-  } else if (followers.includes(nowUserId)) {
-    text = 'Following';
-  } else {
-    text = 'Follow';
-  }
+  const { userInfo } = useAuthContext();
+  const getButtonText = () => {
+    let text = '';
+    if (userId === userInfo.userId) {
+      text = 'Edit';
+    } else if (followers.includes(userInfo.userId)) {
+      text = 'Following';
+    } else {
+      text = 'Follow';
+    }
+    return text;
+  };
 
   const textProps = {
-    content: text,
+    content: getButtonText(),
     color: color.white,
   };
 
   return (
     <UserInfoWrapper>
-      <TextButton textProps={textProps} />
+      <TextButton
+        textProps={textProps}
+        name="userInfoButton"
+        onClick={() => console.log('회원정보수정 페이지로 이동')}
+      />
       <ProfileBox
         src={image}
         size={72}
@@ -64,32 +71,31 @@ const UserInfo = ({
         strong
       />
       <LinkButtonWrapper>
-        <LinkButton to={followers}>
-          <CountText>{followerCount}</CountText>
-          <Text content="팔로워" strong />
-        </LinkButton>
-        <LinkButton to={following}>
-          <CountText>{followingCount}</CountText>
-          <Text content="팔로잉" strong />
-        </LinkButton>
+        <Link to={`/user/${userId}/follower`}>
+          <LinkButton>
+            <CountText>{followerCount}</CountText>
+            <Text content="팔로워" strong />
+          </LinkButton>
+        </Link>
+        <Link to={`/user/${userId}/following`}>
+          <LinkButton>
+            <CountText>{followingCount}</CountText>
+            <Text content="팔로잉" strong />
+          </LinkButton>
+        </Link>
       </LinkButtonWrapper>
     </UserInfoWrapper>
   );
 };
 
-UserInfo.defaultProps = {
-  image: 'https://picsum.photos/200/400',
-};
-
 UserInfo.propTypes = {
   username: PropTypes.string.isRequired,
   level: PropTypes.number.isRequired,
-  image: PropTypes.string,
-  followers: PropTypes.string.isRequired,
-  following: PropTypes.string.isRequired,
+  image: PropTypes.string.isRequired,
+  followers: PropTypes.array.isRequired,
   userId: PropTypes.string.isRequired,
-  followerCount: PropTypes.isRequired,
-  followingCount: PropTypes.isRequired,
+  followerCount: PropTypes.number.isRequired,
+  followingCount: PropTypes.number.isRequired,
 };
 
 export default UserInfo;

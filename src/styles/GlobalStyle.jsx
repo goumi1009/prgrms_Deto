@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import color from '@styles/color';
 
 const GlobalStyle = createGlobalStyle`
   /* stylelint-disable */
@@ -11,6 +12,7 @@ const GlobalStyle = createGlobalStyle`
 
   body {
     margin: 0;
+    background: ${color.background};
   }
 
   main {

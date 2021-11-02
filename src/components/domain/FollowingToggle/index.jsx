@@ -9,13 +9,19 @@ const StyledButton = styled.button`
     props.selected ? props.toggleColor : color.border};
 `;
 
-const FollowingToggle = ({ name, size, toggleColor, onToggle, identify }) => {
+const FollowingToggle = ({
+  name,
+  size,
+  toggleColor,
+  onToggle,
+  userId,
+  followingId,
+}) => {
   const [selected, setSelected] = useState(false);
   const handleClick = () => {
     setSelected(!selected);
-    onToggle({ selected: !selected, identify });
+    onToggle({ selected: !selected, userId, followingId });
   };
-  console.log('identify받아오나?', identify);
 
   return (
     <StyledButton
@@ -24,6 +30,7 @@ const FollowingToggle = ({ name, size, toggleColor, onToggle, identify }) => {
       selected={selected}
       toggleColor={toggleColor}
       onClick={handleClick}
+      userId={userId}
     >
       {selected ? '팔로우' : '팔로잉'}
     </StyledButton>
@@ -40,7 +47,8 @@ FollowingToggle.propTypes = {
   size: PropTypes.number,
   toggleColor: PropTypes.string,
   onToggle: PropTypes.func.isRequired,
-  identify: PropTypes.string.isRequired,
+  userId: PropTypes.string.isRequired,
+  followingId: PropTypes.string.isRequired,
 };
 
 export default FollowingToggle;

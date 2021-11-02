@@ -3,7 +3,7 @@ import Text from '@components/base/Text';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Badge from '@components/base/Badge';
-import FollowingToggle from '@components/base/FollowingToggle';
+import FollowingToggle from '@components/domain/FollowingToggle';
 import color from '@styles/color';
 
 const ItemBox = styled.div`
@@ -11,7 +11,14 @@ const ItemBox = styled.div`
   align-items: center;
 `;
 
-const FollowingItem = ({ userProfile, userName, status, onToggle, userId }) => {
+const FollowingItem = ({
+  userProfile,
+  userName,
+  status,
+  onToggle,
+  userId,
+  followingId,
+}) => {
   const avatar = <Avatar src={userProfile} />;
 
   return (
@@ -24,7 +31,8 @@ const FollowingItem = ({ userProfile, userName, status, onToggle, userId }) => {
           size={49}
           toggleColor={color.green}
           onToggle={onToggle}
-          selectedUserId={userId}
+          userId={userId}
+          followingId={followingId}
         />
       ) : undefined}
     </ItemBox>
@@ -41,6 +49,7 @@ FollowingItem.propTypes = {
   status: PropTypes.bool.isRequired,
   onToggle: PropTypes.func,
   userId: PropTypes.string.isRequired,
+  followingId: PropTypes.string.isRequired,
 };
 
 export default FollowingItem;

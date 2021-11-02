@@ -13,6 +13,7 @@ const CategoryButtons = ({ categoryList, onToggle }) => (
     {React.Children.toArray(
       categoryList.map((category) => (
         <ToggleButton
+          key={category}
           text={category}
           name={category}
           size={49}

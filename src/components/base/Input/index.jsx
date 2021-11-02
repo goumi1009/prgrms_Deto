@@ -3,40 +3,52 @@ import styled from 'styled-components';
 import color from '@styles/color';
 import fontType from '@styles/fontType';
 
+const StyledLabel = styled.label`
+  display: inline-block;
+  margin-bottom: 4px;
+  ${(props) => fontType[props.fontType]};
+  font-weight: bold;
+  color: ${color.secondary};
+`;
 const StyledInput = styled.input`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
-  font-size: 16px;
+  ${(props) => fontType[props.fontType]};
   border: 1px solid ${color.border};
   border-radius: 4px;
   padding: 0 16px;
+
+  &:hover {
+    background-color: ${color.background};
+  }
+
+  &:focus {
+    border: 1px solid ${color.green};
+  }
 
   &::placeholder {
     color: ${color.tertiary};
     font-size: 16px;
   }
 
-  &:focus {
-    outline: none;
-    border: 1px solid ${color.green};
+  &:disabled {
+    opacity: 40%;
   }
-`;
-
-const StyledLabel = styled.label`
-  ${(props) => fontType[props.fontType]};
 `;
 
 const Input = ({
   inputType,
   inputId,
   inputName,
+  inputFontType,
   placeholder,
   width,
   height,
   labelText,
   labelFontType,
   onChange,
+  disabled,
 }) => {
   const handleChange = (e) => {
     const { value, name } = e.target;
@@ -57,6 +69,8 @@ const Input = ({
         width={width}
         height={height}
         onChange={handleChange}
+        fontType={inputFontType}
+        disabled={disabled}
       />
     </>
   );
@@ -67,7 +81,9 @@ Input.defaultProps = {
   width: '100%',
   height: 40,
   labelText: '',
-  labelFontType: 'base',
+  labelFontType: 'small',
+  inputFontType: 'base',
+  disabled: false,
 };
 
 Input.propTypes = {
@@ -79,7 +95,9 @@ Input.propTypes = {
   height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelText: PropTypes.string,
   labelFontType: PropTypes.string,
+  inputFontType: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  disabled: PropTypes.bool,
 };
 
 export default Input;

@@ -8,4 +8,4 @@ export default {
   },
 };
 
-export const Default = (args) => <Input {...args} />;
+export const Default = (args) => <Input {...args} labelText="라벨이지요" />;
