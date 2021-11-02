@@ -38,7 +38,7 @@ const Router = () => {
           {userToken ? <FollowingPage /> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/user/:id/follower">
-          {userToken ? <h1>FollowerPage</h1> : <Redirect to="/user/login" />}
+          {userToken ? <FollowerPage /> : <Redirect to="/user/login" />}
         </Route>
         <Route exact path="/user/alarm">
           {userToken ? <h1>AlarmPage</h1> : <Redirect to="/user/login" />}
