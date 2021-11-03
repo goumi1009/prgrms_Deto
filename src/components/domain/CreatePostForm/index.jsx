@@ -13,29 +13,66 @@ import Uploader from '@components/base/Uploader';
 import color from '@styles/color';
 import { sendPost } from '@utils/api';
 import { useAuthContext } from '@contexts/AuthProvider';
+import java from '@assets/icon/java.svg';
+import javascript from '@assets/icon/javascript.svg';
+import nodedotjs from '@assets/icon/nodedotjs.svg';
+import python from '@assets/icon/python.svg';
+import react from '@assets/icon/react.svg';
+import typescript from '@assets/icon/typescript.svg';
+import vuedotjs from '@assets/icon/vuedotjs.svg';
+import Icon from '@components/base/Icon';
+import Text from '@components/base/Text/index';
 
 const categoryList = ['재미', '커뮤니티', '라이프', '교육', '개발', '기타'];
 const iconList = [
-  { src: 'https://picsum.photos/200?1', name: 'Vue' },
-  { src: 'https://picsum.photos/200?2', name: 'React' },
-  { src: 'https://picsum.photos/200?3', name: 'Java' },
-  { src: 'https://picsum.photos/200?4', name: 'JavaScript' },
-  { src: 'https://picsum.photos/200?5', name: 'Node.js' },
-  { src: 'https://picsum.photos/200?6', name: 'TypeScript' },
-  { src: 'https://picsum.photos/200?7', name: 'Python' },
+  { src: java, name: 'Java' },
+  { src: javascript, name: 'JavaScript' },
+  { src: nodedotjs, name: 'Node.js' },
+  { src: python, name: 'Python' },
+  { src: typescript, name: 'TypeScript' },
+  { src: react, name: 'react' },
+  { src: vuedotjs, name: 'Vue' },
 ];
 
-const FormContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
+const FormContainer = styled.div``;
 
 const FileContainer = styled.div`
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
   border: 2px dashed ${color.border};
+  border-radius: 8px;
   border-color: ${(props) => (props.dragging ? color.green : color.border)};
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    width: auto;
+    height: 100%;
+  }
+`;
+
+const EmptyContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const FormRow = styled.div`
+  margin-bottom: 16px;
+`;
+
+const AgreeToggleButton = styled(ToggleButton)`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  justify-content: center;
+  border-radius: 4px;
+  width: 200px;
 `;
 
 const CreatePostForm = () => {
@@ -101,99 +138,123 @@ const CreatePostForm = () => {
 
   const createFileContainer = (files, dragging, width, height) => (
     <FileContainer dragging={dragging} width={width} height={height}>
-      {files.length
-        ? React.Children.toArray(
-            Array.from(files).map((file) => (
-              <img alt={file.name} style={{ width, height }} src={`${file}`} />
-            )),
-          )
-        : '프로젝트 이미지를 추가하세요'}
+      {files.length ? (
+        React.Children.toArray(
+          Array.from(files).map((file) => (
+            <img alt={file.name} src={`${file}`} />
+          )),
+        )
+      ) : (
+        <EmptyContainer>
+          <Icon name="upload" size={66} />
+          <Text content="프로젝트 이미지를 추가하세요" color="secondary" />
+        </EmptyContainer>
+      )}
     </FileContainer>
   );
 
   return (
     <FormContainer>
       <CategoryButtons categoryList={categoryList} onToggle={handleCategory} />
-      <Input
-        inputType="text"
-        inputId="postTitle"
-        inputName="postTitle"
-        labelText="제목*"
-        labelFontType="micro"
-        onChange={handleChange}
-      />
-      <Textarea
-        labelText="설명*"
-        labelFontType="micro"
-        textareaId="postDescription"
-        textareaName="postDescription"
-        onChange={handleChange}
-      />
-      <TextButton
-        name="techStackButton"
-        textProps={{ content: '사용된 기술 스택' }}
-        size={264}
-        color="border"
-        onClick={handleStackModal}
-      />
-      <Modal isVisible={stackVisible}>
+      <FormRow>
+        <Input
+          inputType="text"
+          inputId="postTitle"
+          inputName="postTitle"
+          labelText="제목*"
+          labelFontType="small"
+          onChange={handleChange}
+        />
+      </FormRow>
+      <FormRow>
+        <Textarea
+          labelText="설명*"
+          labelFontType="small"
+          textareaId="postDescription"
+          textareaName="postDescription"
+          onChange={handleChange}
+        />
+      </FormRow>
+      <FormRow>
+        <TextButton
+          name="techStackButton"
+          textProps={{ content: '사용된 기술 스택', color: 'white' }}
+          width={180}
+          color="tertiary"
+          onClick={handleStackModal}
+        />
+      </FormRow>
+      <Modal isVisible={stackVisible} height={300}>
         <IconCheckForm
           iconList={iconList}
           onToggle={handleTechStack}
           onClose={handleStackModal}
         />
       </Modal>
-      <Input
-        inputType="url"
-        inputId="postDeployLink"
-        inputName="postDeployLink"
-        labelText="배포 주소*"
-        labelFontType="micro"
-        onChange={handleChange}
-      />
-      <Input
-        inputType="url"
-        inputId="postGithubLink"
-        inputName="postGithubLink"
-        labelText="소스코드 주소"
-        labelFontType="micro"
-        onChange={handleChange}
-      />
-      <Uploader
-        droppable
-        name="postFiles"
-        accept="image/*"
-        multiple
-        onChange={handleFiles}
-      >
-        {createFileContainer}
-      </Uploader>
-      <ToggleButton
-        name="collaboButton"
-        text="협업 제안 허용하기"
-        size={264}
-        toggleColor={color.green}
-        onToggle={handleCollabo}
-      />
+      <FormRow>
+        <Input
+          inputType="url"
+          inputId="postDeployLink"
+          inputName="postDeployLink"
+          labelText="배포 주소*"
+          labelFontType="small"
+          onChange={handleChange}
+        />
+      </FormRow>
+      <FormRow>
+        <Input
+          inputType="url"
+          inputId="postGithubLink"
+          inputName="postGithubLink"
+          labelText="소스코드 주소"
+          labelFontType="small"
+          onChange={handleChange}
+        />
+      </FormRow>
+      <FormRow>
+        <Uploader
+          droppable
+          name="postFiles"
+          accept="image/*"
+          multiple
+          width="auto"
+          height={120}
+          onChange={handleFiles}
+        >
+          {createFileContainer}
+        </Uploader>
+      </FormRow>
+      <FormRow>
+        <AgreeToggleButton
+          name="collaboButton"
+          text="협업 제안 허용하기"
+          baseColor={color.secondary}
+          toggleColor={color.greenLight}
+          onToggle={handleCollabo}
+        />
+      </FormRow>
       <TextButton
         name="submitButton"
-        textProps={{ content: '완료' }}
-        size={264}
-        color="tertiary"
+        textProps={{ content: '완료', color: 'white' }}
+        width="100%"
+        color="gradient"
         onClick={handleAlertModal}
       />
-      <Modal isVisible={alertVisible}>
+      <Modal isVisible={alertVisible} width="80%" height="200px;">
         <Alert
-          textProps={{ content: '작성을 완료하시겠습니까?' }}
+          textProps={{ content: '작성을 완료하시겠습니까?', fontType: 'large' }}
           buttons={[
             {
-              textProps: { content: '확인' },
+              textProps: { content: '확인', color: 'white' },
               name: 'submitButton',
+              hoverColor: 'greenLight',
               onClick: submitForm,
             },
             {
               textProps: { content: '취소' },
               name: 'cancelButton',
+              color: 'border',
+              hoverColor: 'tertiary',
               onClick: handleAlertModal,
             },
           ]}

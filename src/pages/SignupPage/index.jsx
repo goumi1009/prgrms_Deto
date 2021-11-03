@@ -37,14 +37,18 @@ const SignupPage = () => {
         <Logo size={50} />
       </Link>
       <SignupForm onSubmit={onSubmit} />
-      <Modal isVisible={isVisible}>
+      <Modal isVisible={isVisible} height={200}>
         <Alert
-          textProps={{ content: '회원가입에 성공하였습니다!' }}
+          textProps={{
+            content: '회원가입에 성공하였습니다!',
+            fontType: 'large',
+          }}
           buttons={[
             {
-              textProps: { content: '확인' },
+              textProps: { content: '확인', color: 'white' },
               name: 'submitButton',
               onClick: () => history.push('/user/login'),
+              hoverColor: 'greenLight',
             },
           ]}
         />

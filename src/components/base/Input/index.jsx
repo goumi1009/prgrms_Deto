@@ -18,6 +18,7 @@ const StyledInput = styled.input`
   border: 1px solid ${color.border};
   border-radius: 4px;
   padding: 0 16px;
+  background: ${color.white};
 
   &:hover {
     background-color: ${color.background};

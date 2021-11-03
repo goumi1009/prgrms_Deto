@@ -9,28 +9,42 @@ export const useAuthContext = () => useContext(AuthContext);
 
 const AuthProvider = ({ children }) => {
   const [userToken, setUserToken] = useState(() => getItem(TOKEN_KEY, ''));
-  const [userInfo, setUserInfo] = useState({});
+  const [userInfo, setUserInfo] = useState({
+    userId: '',
+    userProfile: '',
+    userName: '',
+    likes: [],
+    comments: [],
+    followers: [],
+    following: [],
+    email: '',
+    isOnline: false,
+  });
   const history = useHistory();
 
+  const updateUserInfo = async () => {
+    const storageToken = getItem(TOKEN_KEY, '');
+    if (storageToken) {
+      const user = await getAuthUser(storageToken);
+      setUserInfo({
+        userId: user._id,
+        userProfile: user.image,
+        userName: user.username,
+        likes: user.likes,
+        comments: user.comments,
+        followers: user.followers,
+        following: user.following,
+        email: user.email,
+        isOnline: user.isOnline,
+      });
+    }
+  };
+
   useEffect(() => {
-    const authUser = async () => {
-      const storageToken = getItem(TOKEN_KEY);
-      if (storageToken) {
-        const user = await getAuthUser(storageToken);
-        setUserInfo({
-          userId: user._id,
-          userProfile: user.image,
-          userName: user.username,
-          likes: user.likes,
-          comments: user.comments,
-          followers: user.followers,
-          following: user.following,
-          email: user.email,
-          isOnline: user.isOnline,
-        });
-      }
+    const initUserInfo = async () => {
+      await updateUserInfo();
     };
-    authUser();
+    initUserInfo();
   }, []);
 
   const handleLogin = async (loginInfo) => {
@@ -48,7 +62,7 @@ const AuthProvider = ({ children }) => {
         email: user.email,
         isOnline: user.isOnline,
       });
-      setUserToken(true);
+      setUserToken(token);
       return true;
     } catch (error) {
       alert('잘못된 이메일 또는 비밀번호입니다!');
@@ -60,7 +74,7 @@ const AuthProvider = ({ children }) => {
     try {
       await logout();
       removeItem(TOKEN_KEY);
-      setUserToken(false);
+      setUserToken('');
       history.replace('/');
     } catch (error) {
       console.log(error);
@@ -69,7 +83,7 @@ const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ userInfo, userToken, handleLogin, handleLogout }}
+      value={{ userInfo, userToken, updateUserInfo, handleLogin, handleLogout }}
     >
       {children}
     </AuthContext.Provider>

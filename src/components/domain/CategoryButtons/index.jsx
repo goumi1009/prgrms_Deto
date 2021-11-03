@@ -1,11 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import ToggleButton from '@components/base/ToggleButton';
 import color from '@styles/color';
+import ToggleButton from '@components/base/ToggleButton';
 
 const ButtonContainer = styled.div`
   display: flex;
+  width: 100%;
+  margin: 4px 0 16px;
+  border-radius: 4px;
+  border: 1px solid ${color.greenLight};
+  overflow: hidden;
 `;
 
 const CategoryButtons = ({ categoryList, onToggle }) => (
@@ -16,8 +21,9 @@ const CategoryButtons = ({ categoryList, onToggle }) => (
           key={category}
           text={category}
           name={category}
-          size={49}
-          toggleColor={color.green}
+          fontColor={color.greenLight}
+          baseColor={color.white}
+          toggleColor={color.greenLight}
           onToggle={onToggle}
         />
       )),

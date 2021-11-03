@@ -15,6 +15,7 @@ module.exports = {
           '@styles': 'styles',
           '@utils': 'utils',
           '@routes': 'routes',
+          '@assets': 'assets',
         },
       },
     },

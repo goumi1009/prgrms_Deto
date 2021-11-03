@@ -3,7 +3,10 @@ import PropTypes from 'prop-types';
 import { useRef, useState } from 'react';
 
 const UploadContainer = styled.div`
-  width: 264px;
+  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  height: ${({ height }) =>
+    typeof height === 'number' ? `${height}px` : height};
+  border-radius: 4px;
   cursor: pointer;
 `;
 
@@ -123,8 +126,8 @@ Uploader.propTypes = {
   accept: PropTypes.string,
   multiple: PropTypes.bool,
   onChange: PropTypes.func.isRequired,
-  width: PropTypes.number,
-  height: PropTypes.number,
+  width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  height: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 };
 
 export default Uploader;

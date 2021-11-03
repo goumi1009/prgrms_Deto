@@ -209,8 +209,7 @@ export const getUserPost = async (userId) => {
 };
 
 // 팔로우 하기
-export const follow = async (userId) => {
-  const token = getItem(TOKEN_KEY);
+export const follow = async (token, userId) => {
   const res = await request({
     url: '/follow/create',
     method: 'post',
@@ -225,8 +224,7 @@ export const follow = async (userId) => {
 };
 
 // 언팔 하기
-export const unfollow = async (followingId) => {
-  const token = getItem(TOKEN_KEY);
+export const unfollow = async (token, followingId) => {
   const res = await request({
     url: '/follow/delete',
     method: 'delete',

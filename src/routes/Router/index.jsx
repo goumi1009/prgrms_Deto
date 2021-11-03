@@ -40,6 +40,13 @@ const Router = () => {
           <Header />
           {userToken ? <NotificationPage /> : <Redirect to="/user/login" />}
         </Route>
+        <Route exact path="/user/edit">
+          {userToken ? (
+            <h1>회원 정보 수정 페이지 Coming Soon..</h1>
+          ) : (
+            <Redirect to="/user/login" />
+          )}
+        </Route>
         <Route exact path="/user/:id">
           <Header />
           {userToken ? <UserPage /> : <Redirect to="/user/login" />}
