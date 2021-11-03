@@ -3,10 +3,10 @@ import { useEffect, useState } from 'react';
 import { useAuthContext } from '@contexts/AuthProvider';
 import { Link, useLocation } from 'react-router-dom';
 import color from '@styles/color';
-import fontType from '@styles/fontType';
 import Icon from '@components/base/Icon';
 import Text from '@components/base/Text';
 import ProfileBox from '@components/base/ProfileBox';
+import Logo from '@components/base/Logo';
 
 const AppHeaderWrapper = styled.div`
   display: flex;
@@ -21,9 +21,11 @@ const AppHeaderWrapper = styled.div`
   background: ${color.white};
 `;
 
-const Logo = styled.h1`
-  ${fontType.medium};
-  color: ${color.green};
+const HeaderLogo = styled.h1`
+  width: 72px;
+  img {
+    width: 100%;
+  }
 `;
 
 const ButtonWrapper = styled.div`
@@ -209,9 +211,11 @@ const Header = () => {
 
   return (
     <AppHeaderWrapper>
-      <Logo>
-        <Link to="/">Deto</Link>
-      </Logo>
+      <HeaderLogo>
+        <Link to="/">
+          <Logo />
+        </Link>
+      </HeaderLogo>
       <ButtonWrapper>
         <IconLink to={userToken ? '/post/create' : '/user/login'}>
           <Icon name="plus-square" color={color.secondary} />

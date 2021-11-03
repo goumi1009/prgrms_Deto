@@ -8,23 +8,23 @@ import Text from '@components/base/Text';
 import ProfileBox from '@components/base/ProfileBox';
 import Icon from '@components/base/Icon';
 import Avatar from '@components/base/Avatar';
-// import java from '@assets/icon/java.svg';
-// import javascript from '@assets/icon/javascript.svg';
-// import nodedotjs from '@assets/icon/nodedotjs.svg';
-// import python from '@assets/icon/python.svg';
-// import react from '@assets/icon/react.svg';
-// import typescript from '@assets/icon/typescript.svg';
-// import vuedotjs from '@assets/icon/vuedotjs.svg';
+import java from '@assets/icon/java.svg';
+import javascript from '@assets/icon/javascript.svg';
+import nodedotjs from '@assets/icon/nodedotjs.svg';
+import python from '@assets/icon/python.svg';
+import react from '@assets/icon/react.svg';
+import typescript from '@assets/icon/typescript.svg';
+import vuedotjs from '@assets/icon/vuedotjs.svg';
 
-// const iconList = [
-//   { src: java, name: 'Java' },
-//   { src: javascript, name: 'JavaScript' },
-//   { src: nodedotjs, name: 'Node.js' },
-//   { src: python, name: 'Python' },
-//   { src: typescript, name: 'TypeScript' },
-//   { src: react, name: 'react' },
-//   { src: vuedotjs, name: 'Vue' },
-// ];
+const techIcon = {
+  Java: java,
+  JavaScript: javascript,
+  'Node.js': nodedotjs,
+  Python: python,
+  TypeScript: typescript,
+  react,
+  Vue: vuedotjs,
+};
 
 const PostContainer = styled.div`
   max-width: 500px;
@@ -44,7 +44,9 @@ const PostUserLink = styled(Link)`
 const StackContainer = styled.div`
   display: flex;
   flex-direction: row;
-  opacity: 0.7;
+  > div:not(:first-child) {
+    margin-left: -8px;
+  }
 `;
 
 const StackWrapper = styled.div`
@@ -112,7 +114,6 @@ const PostItem = ({
     (category || []).length >= 2
       ? `${category[0]} 외 ${category.length - 1}개`
       : category[0];
-
   return (
     <PostContainer {...props}>
       <PostUserLink to={`/user/${userId}`}>
@@ -134,7 +135,7 @@ const PostItem = ({
           <StackWrapper>
             <StackContainer>
               {techStack.map((tech) => (
-                <Avatar key={tech} src="" />
+                <Avatar key={tech} src={techIcon[tech]} />
               ))}
             </StackContainer>
           </StackWrapper>

@@ -1,13 +1,19 @@
 import { useParams } from 'react-router';
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { getUserDetail } from '@utils/api';
 import FollowerItem from '@components/domain/FollowerItem';
 import Text from '@components/base/Text';
-import styled from 'styled-components';
+import PageWrapper from '@components/base/PageWrapper';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+const TitleText = styled.h2`
+  margin-bottom: 8px;
+  display: block;
+  font-weight: normal;
+
+  &:not(:first-child) {
+    margin-top: 30px;
+  }
 `;
 
 const FollowerPage = () => {
@@ -44,8 +50,10 @@ const FollowerPage = () => {
   }, [id]);
 
   return (
-    <Container>
-      <Text content="온라인" fontType="large" />
+    <PageWrapper>
+      <TitleText>
+        <Text content="온라인" fontType="micro" />
+      </TitleText>
       {onlineUser.length !== 0 ? (
         onlineUser.map((user) => (
           <FollowerItem
@@ -55,9 +63,11 @@ const FollowerPage = () => {
           />
         ))
       ) : (
-        <Text content="유저가 없습니다" />
+        <Text content="유저가 없습니다" color="tertiary" />
       )}
-      <Text content="오프라인" fontType="large" />
+      <TitleText>
+        <Text content="오프라인" fontType="micro" />
+      </TitleText>
       {offlineUser.length !== 0 ? (
         offlineUser.map((user) => (
           <FollowerItem
@@ -69,7 +79,7 @@ const FollowerPage = () => {
       ) : (
         <Text content="유저가 없습니다" />
       )}
-    </Container>
+    </PageWrapper>
   );
 };
 

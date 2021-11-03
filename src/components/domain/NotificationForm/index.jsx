@@ -4,17 +4,39 @@ import { getNotifications, readNotifications } from '@utils/api';
 import { useAuthContext } from '@contexts/AuthProvider';
 import styled from 'styled-components';
 import color from '@styles/color';
+import Icon from '@components/base/Icon';
+import Text from '../../base/Text/index';
 
 const ReadButton = styled.button`
-  width: 200px;
-  background-color: ${color.green};
+  display: block;
+  margin-left: auto;
+  margin-bottom: 16px;
+  background-color: ${color.tertiary};
+  padding: 8px 16px;
+  color: ${color.white};
+  border-radius: 4px;
 `;
 
 const NotificationItem = styled.div`
   width: 100%;
-  border: 1px solid black;
-  background-color: ${(props) =>
-    props.isSeen ? `${color.white}` : `${color.border}`};
+  margin-bottom: 16px;
+  opacity: ${(props) => (props.isSeen ? 0.7 : 1)};
+
+  &:hover {
+    opacity: 1;
+  }
+`;
+
+const ItemLink = styled(Link)`
+  display: flex;
+  border-radius: 8px;
+  background-color: ${color.white};
+  padding: 12px;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
+
+  i {
+    margin-right: 8px;
+  }
 `;
 
 const NotificationForm = () => {
@@ -77,9 +99,10 @@ const NotificationForm = () => {
       {notifications.map(
         ({ notificationId, postId, message, userId, isSeen }) => (
           <NotificationItem key={notificationId} isSeen={isSeen}>
-            <Link to={postId ? `/post/${postId}` : `/user/${userId}`}>
-              {message}
-            </Link>
+            <ItemLink to={postId ? `/post/${postId}` : `/user/${userId}`}>
+              <Icon name="bell" color={color.secondary} />
+              <Text content={message} />
+            </ItemLink>
           </NotificationItem>
         ),
       )}

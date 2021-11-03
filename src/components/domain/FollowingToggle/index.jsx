@@ -7,6 +7,10 @@ const StyledButton = styled.button`
   width: ${(props) => `${props.size}px`};
   background-color: ${(props) =>
     props.selected ? props.toggleColor : color.border};
+  color: ${(props) => (props.selected ? color.white : color.primary)};
+  padding: 4px 8px 5px;
+  border-radius: 4px;
+  margin-left: 8px;
 `;
 
 const FollowingToggle = ({

@@ -33,6 +33,9 @@ const RodioWrapper = styled.div`
     margin-right: 4px;
   }
 `;
+const TextButtonRight = styled(TextButton)`
+  margin-left: auto;
+`;
 
 const radioOptions = [
   {
@@ -100,7 +103,7 @@ const CommentForm = ({ onSubmit }) => {
         value={textValue}
         onChange={(e) => handleInputChange('text', e.value)}
       />
-      <TextButton
+      <TextButtonRight
         textProps={{
           content: '댓글 작성',
           color: 'white',

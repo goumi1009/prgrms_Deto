@@ -1,14 +1,9 @@
-import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import color from '@styles/color';
+import LogoSvg from '@assets/logo.svg';
 
-const StyledText = styled.span`
-  color: ${color.green};
-  font-size: ${(props) => `${props.size}px`};
-  font-weight: bold;
-`;
-
-const Logo = ({ size }) => <StyledText size={size}>Deto</StyledText>;
+const Logo = ({ size }) => (
+  <img src={LogoSvg} size={size} alt="디토, 데브 토이프로젝트" />
+);
 
 Logo.defaultProps = {
   size: 18,

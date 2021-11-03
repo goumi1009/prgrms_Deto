@@ -28,7 +28,7 @@ const FollowingItem = ({
       {onToggle ? (
         <FollowingToggle
           name={userId}
-          size={49}
+          size={70}
           toggleColor={color.green}
           onToggle={onToggle}
           userId={userId}

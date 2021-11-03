@@ -1,17 +1,27 @@
-import Avatar from '@components/base/Avatar';
-import Text from '@components/base/Text';
+// import Avatar from '@components/base/Avatar';
+// import Text from '@components/base/Text';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import color from '@styles/color';
+import ProfileBox from '@components/base/ProfileBox';
 
 const ItemBox = styled.div`
   display: flex;
   align-items: center;
+  margin-bottom: 8px;
+  padding: 8px;
+  /* background-color: ${color.white}; */
 `;
 
 const FollowerItem = ({ userProfile, userName }) => (
   <ItemBox>
-    <Avatar src={userProfile} style={{ margin: '0 20px 0 0' }} />
-    <Text content={userName} />
+    <ProfileBox
+      src={userProfile}
+      size={40}
+      content={userName}
+      color="primary"
+      fontType="small"
+    />
   </ItemBox>
 );
 

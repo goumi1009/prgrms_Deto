@@ -1,5 +1,10 @@
 import NotificationForm from '@components/domain/NotificationForm';
+import PageWrapper from '@components/base/PageWrapper';
 
-const NotificationPage = () => <NotificationForm />;
+const NotificationPage = () => (
+  <PageWrapper>
+    <NotificationForm />
+  </PageWrapper>
+);
 
 export default NotificationPage;

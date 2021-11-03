@@ -8,9 +8,27 @@ import Text from '@components/base/Text';
 import Image from '@components/base/Image';
 import Avatar from '@components/base/Avatar';
 import Icon from '@components/base/Icon';
+import java from '@assets/icon/java.svg';
+import githubIcon from '@assets/icon/github.svg';
+import javascript from '@assets/icon/javascript.svg';
+import nodedotjs from '@assets/icon/nodedotjs.svg';
+import python from '@assets/icon/python.svg';
+import react from '@assets/icon/react.svg';
+import typescript from '@assets/icon/typescript.svg';
+import vuedotjs from '@assets/icon/vuedotjs.svg';
+
+const techIcon = {
+  Java: java,
+  JavaScript: javascript,
+  'Node.js': nodedotjs,
+  Python: python,
+  TypeScript: typescript,
+  react,
+  Vue: vuedotjs,
+};
 
 const PostInfoWrapper = styled.div`
-  margin-bottom: 16px;
+  margin-bottom: 60px;
 `;
 
 const ImageWrapper = styled.div`
@@ -55,6 +73,11 @@ const StackList = styled.ul`
   display: flex;
   gap: 4px;
   margin-top: 16px;
+
+  li:not(:first-child) {
+    margin-left: -12px;
+  }
+
   span {
     display: flex;
     justify-content: center;
@@ -81,7 +104,9 @@ const PlayLink = styled.a`
   height: 40px;
   border-radius: 20px;
   background-image: ${color.gradient};
-
+  i {
+    margin-right: 4px;
+  }
   &:hover {
     background: ${color.green};
   }
@@ -91,7 +116,7 @@ const GithubLInk = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid ${color.border};
+  background-color: ${color.white};
   border-radius: 50%;
   ${fontType.small};
   font-weight: bold;
@@ -123,7 +148,7 @@ const PostInfo = ({ postData, onClick, isLiked }) => {
           const categoryKey = `${postId}${index}`;
           return (
             <li key={categoryKey}>
-              <Text content={category} fontType="micro" strong color="white" />
+              <Text content={category} fontType="micro" color="white" />
             </li>
           );
         })}
@@ -143,11 +168,11 @@ const PostInfo = ({ postData, onClick, isLiked }) => {
       </CreateInfo>
       <StackList>
         {techStack
-          ? (techStack || []).map((TechStack, index) => {
+          ? (techStack || []).map((tech, index) => {
               const TechStackKey = `${postId}${index}`;
               return (
                 <li key={TechStackKey}>
-                  <Avatar size={32} alt={TechStack} />
+                  <Avatar size={32} alt={tech} src={techIcon[tech]} />
                 </li>
               );
             })
@@ -157,15 +182,21 @@ const PostInfo = ({ postData, onClick, isLiked }) => {
         <Text content={title} fontType="medium" />
       </PostTitle>
       <p>
-        <Text content={description} fontType="small" />
+        <Text content={description} fontType="base" />
       </p>
       <LinkWrapper>
         <PlayLink href={deployLink} target="_blank">
+          <Icon
+            name="play"
+            size={18}
+            color={color.white}
+            hoverColor={color.white}
+          />
           Play
         </PlayLink>
         {githubLink ? (
           <GithubLInk href={githubLink} target="_blank" rel="noreferrer">
-            CODE
+            <img src={githubIcon} alt="githublink" />
           </GithubLInk>
         ) : undefined}
         <LikeWrapper>

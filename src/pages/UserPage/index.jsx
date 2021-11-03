@@ -1,3 +1,4 @@
+// import styled from 'styled-components';
 import { getUserDetail, getUserPost } from '@utils/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';

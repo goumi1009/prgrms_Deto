@@ -1,14 +1,20 @@
 import { useAuthContext } from '@contexts/AuthProvider';
 import { useParams } from 'react-router';
 import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import { getUserDetail, unfollow, follow } from '@utils/api';
 import FollowingItem from '@components/domain/FollowingItem';
 import Text from '@components/base/Text';
-import styled from 'styled-components';
+import PageWrapper from '@components/base/PageWrapper';
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+const TitleText = styled.h2`
+  margin-bottom: 8px;
+  display: block;
+  font-weight: normal;
+
+  &:not(:first-child) {
+    margin-top: 30px;
+  }
 `;
 
 const FollowingPage = () => {
@@ -69,8 +75,10 @@ const FollowingPage = () => {
   }, [id, userId, following]);
 
   return (
-    <Container>
-      <Text content="온라인" fontType="large" />
+    <PageWrapper>
+      <TitleText>
+        <Text content="온라인" fontType="micro" />
+      </TitleText>
       {onlineUser.length ? (
         React.Children.toArray(
           onlineUser.map((user) => (
@@ -85,9 +93,11 @@ const FollowingPage = () => {
           )),
         )
       ) : (
-        <Text content="유저가 없습니다" />
+        <Text content="유저가 없습니다" color="tertiary" fontType="base" />
       )}
-      <Text content="오프라인" fontType="large" />
+      <TitleText>
+        <Text content="오프라인" fontType="micro" />
+      </TitleText>
       {offlineUser.length ? (
         React.Children.toArray(
           offlineUser.map((user) => (
@@ -102,9 +112,9 @@ const FollowingPage = () => {
           )),
         )
       ) : (
-        <Text content="유저가 없습니다" />
+        <Text content="유저가 없습니다" color="tertiary" fontType="base" />
       )}
-    </Container>
+    </PageWrapper>
   );
 };
 
