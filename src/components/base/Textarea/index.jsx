@@ -7,8 +7,7 @@ const StyledLabel = styled.label`
   display: inline-block;
   margin-bottom: 4px;
   ${(props) => fontType[props.fontType]};
-  font-weight: bold;
-  color: ${color.secondary};
+  color: ${color.primary};
 `;
 
 const StyledTextarea = styled.textarea`
@@ -20,6 +19,7 @@ const StyledTextarea = styled.textarea`
   resize: none;
   border-radius: 4px;
   padding: 16px;
+  background: ${color.white};
   ${(props) => fontType[props.fontType]};
 
   &:hover {

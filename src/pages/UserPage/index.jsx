@@ -1,16 +1,9 @@
-import styled from 'styled-components';
 import { getUserDetail, getUserPost } from '@utils/api';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router';
 import UserInfo from '@components/domain/UserInfo';
 import PostList from '@components/domain/PostList';
-
-const PageContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-`;
+import PageWrapper from '@components/base/PageWrapper';
 
 const UserPage = () => {
   const { id: userId } = useParams();
@@ -23,9 +16,10 @@ const UserPage = () => {
       : 'https://www.pngitem.com/pimgs/m/22-223968_default-profile-picture-circle-hd-png-download.png',
     username: user.username,
     level,
-    followerCount: user.followers.length,
-    followingCount: user.following.length,
+    following: user.following,
     followers: user.followers,
+    followingCount: user.following.length,
+    followerCount: user.followers.length,
     userId: user._id,
   });
 
@@ -60,10 +54,10 @@ const UserPage = () => {
   }, []);
 
   return (
-    <PageContainer>
+    <PageWrapper>
       {userData ? <UserInfo {...userData} /> : undefined}
       {postList ? <PostList postList={postList} /> : undefined}
-    </PageContainer>
+    </PageWrapper>
   );
 };
 

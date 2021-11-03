@@ -1,27 +1,44 @@
-import styled from 'styled-components';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import styled from 'styled-components';
+import { Link, useHistory } from 'react-router-dom';
 import ProfileBox from '@components/base/ProfileBox';
 import Text from '@components/base/Text';
 import TextButton from '@components/base/TextButton/index';
 import color from '@styles/color';
 import { useAuthContext } from '@contexts/AuthProvider';
+import { follow, unfollow, postNotifications } from '@utils/api';
 
 const UserInfoWrapper = styled.div`
-  max-width: 400px;
   position: relative;
-  > button {
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid ${color.border};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 40px;
+`;
+
+const DivWrap = styled.div`
+  button {
     display: block;
-    margin-left: auto;
+    margin-top: 16px;
   }
 `;
 
 const LinkButtonWrapper = styled.div`
-  display: block;
-  padding-left: 72px;
+  display: flex;
 `;
 
-const LinkButton = styled.button``;
+const LinkButton = styled(Link)`
+  display: block;
+  text-align: center;
+  &:not(:first-child) {
+    margin-left: 16px;
+  }
+`;
 
 const CountText = styled.span`
   display: block;
@@ -32,57 +49,80 @@ const UserInfo = ({
   username,
   level,
   image,
-  followers,
-  userId,
   followerCount,
   followingCount,
+  userId,
 }) => {
-  const { userInfo } = useAuthContext();
-  const getButtonText = () => {
-    let text = '';
-    if (userId === userInfo.userId) {
-      text = 'Edit';
-    } else if (followers.includes(userInfo.userId)) {
-      text = 'Following';
-    } else {
-      text = 'Follow';
-    }
-    return text;
-  };
+  const [buttonStatus, setButtonStatus] = useState('');
+  const { userToken, userInfo, updateUserInfo } = useAuthContext();
+  const [followerDisplay, setFollowerDisplay] = useState(followerCount);
+  const history = useHistory();
 
   const textProps = {
-    content: getButtonText(),
+    content: buttonStatus,
     color: color.white,
+  };
+
+  useEffect(() => {
+    if (userId === userInfo.userId) {
+      setButtonStatus('회원정보수정');
+    } else if (userInfo.following.some(({ user }) => user === userId)) {
+      setButtonStatus('팔로잉');
+    } else {
+      setButtonStatus('팔로우');
+    }
+  }, [userInfo]);
+
+  const handleClick = async () => {
+    if (buttonStatus === '회원정보수정') {
+      history.push('/user/edit');
+      return;
+    }
+    if (buttonStatus === '팔로잉') {
+      const { _id } = userInfo.following.find(({ user }) => user === userId);
+      await unfollow(userToken, _id);
+      setButtonStatus('팔로우');
+      setFollowerDisplay(followerDisplay - 1);
+    } else {
+      const { _id, user } = await follow(userToken, userId);
+      await postNotifications(userToken, {
+        notificationType: 'FOLLOW',
+        notificationTypeId: _id,
+        userId: user,
+        postId: null,
+      });
+      setButtonStatus('팔로잉');
+      setFollowerDisplay(followerDisplay + 1);
+    }
+    await updateUserInfo();
   };
 
   return (
     <UserInfoWrapper>
-      <TextButton
-        textProps={textProps}
-        name="userInfoButton"
-        onClick={() => console.log('회원정보수정 페이지로 이동')}
-      />
-      <ProfileBox
-        src={image}
-        size={72}
-        content={`${username} ㆍ lv.${level}`}
-        fontType="base"
-        color={color.primary}
-        strong
-      />
+      <DivWrap>
+        <ProfileBox
+          src={image}
+          size={72}
+          content={`${username} ㆍ lv.${level}`}
+          fontType="base"
+          color={color.primary}
+          strong
+        />
+        <TextButton
+          textProps={textProps}
+          name="userInfoButton"
+          onClick={handleClick}
+        />
+      </DivWrap>
       <LinkButtonWrapper>
-        <Link to={`/user/${userId}/follower`}>
-          <LinkButton>
-            <CountText>{followerCount}</CountText>
-            <Text content="팔로워" strong />
-          </LinkButton>
-        </Link>
-        <Link to={`/user/${userId}/following`}>
-          <LinkButton>
-            <CountText>{followingCount}</CountText>
-            <Text content="팔로잉" strong />
-          </LinkButton>
-        </Link>
+        <LinkButton to={`/user/${userId}/follower`}>
+          <CountText>{followerDisplay}</CountText>
+          <Text content="팔로워" />
+        </LinkButton>
+        <LinkButton to={`/user/${userId}/following`}>
+          <CountText>{followingCount}</CountText>
+          <Text content="팔로잉" />
+        </LinkButton>
       </LinkButtonWrapper>
     </UserInfoWrapper>
   );
@@ -92,7 +132,6 @@ UserInfo.propTypes = {
   username: PropTypes.string.isRequired,
   level: PropTypes.number.isRequired,
   image: PropTypes.string.isRequired,
-  followers: PropTypes.array.isRequired,
   userId: PropTypes.string.isRequired,
   followerCount: PropTypes.number.isRequired,
   followingCount: PropTypes.number.isRequired,

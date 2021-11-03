@@ -15,14 +15,14 @@ const FollowingPage = () => {
   const [onlineUser, setOnlineUser] = useState([]);
   const [offlineUser, setOfflineUser] = useState([]);
   const { id } = useParams();
-  const { userInfo } = useAuthContext();
+  const { userToken, userInfo } = useAuthContext();
   const { following, userId } = userInfo;
 
   const handleFollow = async ({ selected, userId, followingId }) => {
     if (selected) {
-      await unfollow(followingId);
+      await unfollow(userToken, followingId);
     } else {
-      await follow(userId);
+      await follow(userToken, userId);
     }
   };
 

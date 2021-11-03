@@ -7,13 +7,32 @@ import Image from '@components/base/Image';
 import Text from '@components/base/Text';
 import ProfileBox from '@components/base/ProfileBox';
 import Icon from '@components/base/Icon';
+import Avatar from '@components/base/Avatar';
+// import java from '@assets/icon/java.svg';
+// import javascript from '@assets/icon/javascript.svg';
+// import nodedotjs from '@assets/icon/nodedotjs.svg';
+// import python from '@assets/icon/python.svg';
+// import react from '@assets/icon/react.svg';
+// import typescript from '@assets/icon/typescript.svg';
+// import vuedotjs from '@assets/icon/vuedotjs.svg';
+
+// const iconList = [
+//   { src: java, name: 'Java' },
+//   { src: javascript, name: 'JavaScript' },
+//   { src: nodedotjs, name: 'Node.js' },
+//   { src: python, name: 'Python' },
+//   { src: typescript, name: 'TypeScript' },
+//   { src: react, name: 'react' },
+//   { src: vuedotjs, name: 'Vue' },
+// ];
 
 const PostContainer = styled.div`
   max-width: 500px;
-  padding: 16px;
-  border-radius: 4px;
+  padding: 24px;
+  border-radius: 8px;
   box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
-  margin: 0 auto 16px;
+  margin: 0 auto 40px;
+  background: ${color.white};
 `;
 
 const PostUserLink = styled(Link)`
@@ -47,7 +66,6 @@ const CategoryWrapper = styled.div`
   ${fontType.micro};
   border-radius: 15px;
   background: ${color.border};
-  font-weight: bold;
   padding: 4px 12px;
   color: ${color.secondary};
 `;
@@ -55,6 +73,7 @@ const CategoryWrapper = styled.div`
 const TextContainer = styled.div`
   display: flex;
   flex-direction: column;
+  margin-bottom: 24px;
   span {
     margin-bottom: 8px;
   }
@@ -101,12 +120,12 @@ const PostItem = ({
           size={32}
           src={userProfile}
           content={username}
-          fontType="small"
+          fontType="base"
           color="primary"
         />
         <Text
           content={updatedAt.split('T')[0]}
-          fontType="micro"
+          fontType="small"
           color="secondary"
         />
       </PostUserLink>
@@ -115,20 +134,20 @@ const PostItem = ({
           <StackWrapper>
             <StackContainer>
               {techStack.map((tech) => (
-                <Text key={tech} content={tech} />
+                <Avatar key={tech} src="" />
               ))}
             </StackContainer>
           </StackWrapper>
           <Image src={image} width="100%" height="100%" />
         </ThunmbnailWrapper>
         <TextContainer>
-          <Text content={title} fontType="base" strong />
-          <Text content={description} fontType="small" color="secondary" />
+          <Text content={title} fontType="medium" strong />
+          <Text content={description} fontType="base" color="secondary" />
         </TextContainer>
         <CategoryLikeWrapper>
           <CategoryWrapper>{categories}</CategoryWrapper>
           <LikeWrapper>
-            <Icon name="thumbs-up" size={20} color={color.secondary} />
+            <Icon name="thumbs-up" size={20} color={color.greenLight} />
             <Text content={likes} color="secondary" fontType="small" />
           </LikeWrapper>
         </CategoryLikeWrapper>
@@ -136,10 +155,6 @@ const PostItem = ({
     </PostContainer>
   );
 };
-
-// PostItem.defaultProps = {
-//   userProfile: 'https://picsum.photos/200/400',
-// };
 
 PostItem.defaultProps = {
   userProfile: '',

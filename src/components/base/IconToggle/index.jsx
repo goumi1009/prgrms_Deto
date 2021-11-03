@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import Avatar from '@components/base/Avatar';
 
 const StyledButton = styled.button`
   width: ${(props) => `${props.size}px`};
-  opacity: ${(props) => (props.selected ? 1 : 0.5)};
-  margin: 10px;
+  filter: ${(props) => (props.selected ? `grayscale(0%)` : `grayscale(100%)`)};
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+
+  img {
+    width: 80%;
+  }
 `;
 
 const IconToggle = ({ src, name, size, onToggle }) => {
@@ -23,7 +28,7 @@ const IconToggle = ({ src, name, size, onToggle }) => {
       selected={selected}
       onClick={handleClick}
     >
-      <Avatar src={src} size={size} />
+      <img src={src} alt={name} />
     </StyledButton>
   );
 };

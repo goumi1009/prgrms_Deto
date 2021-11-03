@@ -75,7 +75,6 @@ const CategoryNav = ({ onSelect }) => {
             color: 'secondary',
           }}
           name={category}
-          size={42}
           onClick={handleClick}
         />
       ))}

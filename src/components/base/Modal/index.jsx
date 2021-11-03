@@ -18,12 +18,16 @@ const BackgroundDim = styled.div`
 `;
 
 const ModalContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
+  max-width: 500px;
   height: ${({ height }) =>
     typeof height === 'number' ? `${height}px` : height};
   background: ${color.white};
   border-radius: 16px;
-  padding: 16px;
+  padding: 32px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
 `;
 
