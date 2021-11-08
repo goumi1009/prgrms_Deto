@@ -20,7 +20,7 @@
 + 자주 사용되는 기술, 핫한 프로젝트 엿보기
 + 배포 완료된 프로젝트만 등록하여 서비스 퀄리티 보장
 
-![deto_web](https://user-images.githubusercontent.com/40739041/140684435-45242a7c-21b3-4c25-adf3-7a6bdfd618cb.jpg)
+![deto_web](https://user-images.githubusercontent.com/40739041/140688593-4c229f2b-515f-4338-9790-6e1681563bb9.jpg)
 
 ### 프로젝트 설치 및 실행
 + 설치
@@ -48,16 +48,25 @@ npm storybook
 │   ├── components
 │   │   ├── base 
 │   │   └── domain
-│   ├── context
+│   ├── contexts
+│   │   └── AuthProvider
 │   ├── hooks
 │   ├── pages
+│   │   ├── CreatePostPage
+│   │   ├── FollowerPage
+│   │   ├── LoginPage
+│   │   ├── MainPage
+│   │   ├── NotFoundPage
+│   │   ├── NotificationPage
+│   │   ├── PostDetailPage
+│   │   ├── SignupPage
+│   │   └── UserPage
 │   ├── routes
+│   │   └── Router
 │   ├── stories
 │   ├── styles
 │   └── utils
 │       ├── api
-│       ├── constants
-│       ├── library
 │       └── storage
 └── public
 ``` 
@@ -70,4 +79,31 @@ npm storybook
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=black"> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=black"> <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=black"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black"> <img src="https://img.shields.io/badge/stylelint-263238?style=for-the-badge&logo=stylelint&logoColor=black"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=black">
 
 ### 팀원
-![image](https://user-images.githubusercontent.com/55550034/140683903-6560a21c-4c61-4cae-aa87-4d66a448a2ec.png)
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"><a href="https://github.com/42KIM">김사휘</a></th>
+      <th style="text-align: center"><a href="https://github.com/goumi1009">이경미</a></th>
+      <th style="text-align: center"><a href="https://github.com/ono212">박정민</a></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        <img
+          src="https://user-images.githubusercontent.com/40739041/140688009-0c7d54e1-04e3-4e31-8947-8f7f24be37e2.png"
+        />
+      </td>
+      <td>
+        <img
+          src="https://user-images.githubusercontent.com/40739041/140688056-426d15e8-3c60-4c93-8588-eb197a748409.png"
+        />
+      </td>
+      <td>
+        <img
+          src="https://user-images.githubusercontent.com/40739041/140688097-3f3d9713-fbbd-4b7c-84c8-25c6785957a8.png"
+        />
+      </td>
+    </tr>
+  </tbody>
+</table>
