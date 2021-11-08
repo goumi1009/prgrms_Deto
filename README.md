@@ -35,8 +35,11 @@ npm storybook
 ```
 
 ### 플로우 차트
+![image](https://user-images.githubusercontent.com/55550034/140683268-44003066-7318-40eb-b5a3-6dabb5a61b1f.png)
+
 
 ### 기술 스택 
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black"> <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=black"> <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=black"> <img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=black"> <img src="https://img.shields.io/badge/prettier-F7B93E?style=for-the-badge&logo=prettier&logoColor=black"> <img src="https://img.shields.io/badge/stylelint-263238?style=for-the-badge&logo=stylelint&logoColor=black"> <img src="https://img.shields.io/badge/styled components-DB7093?style=for-the-badge&logo=styled-components&logoColor=black">
 
 ### 팀원
+![image](https://user-images.githubusercontent.com/55550034/140683903-6560a21c-4c61-4cae-aa87-4d66a448a2ec.png)
