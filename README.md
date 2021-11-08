@@ -20,6 +20,8 @@
 + 자주 사용되는 기술, 핫한 프로젝트 엿보기
 + 배포 완료된 프로젝트만 등록하여 서비스 퀄리티 보장
 
+![deto_web](https://user-images.githubusercontent.com/40739041/140684435-45242a7c-21b3-4c25-adf3-7a6bdfd618cb.jpg)
+
 ### 프로젝트 설치 및 실행
 + 설치
 ```
@@ -33,6 +35,32 @@ npm start
 ```
 npm storybook
 ```
+
+### 폴더 구조
+```bash
+.
+├── .github
+├── .storybook
+├── node_modules
+├── src
+│   ├── assets
+│   │   └── icon
+│   ├── components
+│   │   ├── base 
+│   │   └── domain
+│   ├── context
+│   ├── hooks
+│   ├── pages
+│   ├── routes
+│   ├── stories
+│   ├── styles
+│   └── utils
+│       ├── api
+│       ├── constants
+│       ├── library
+│       └── storage
+└── public
+``` 
 
 ### 플로우 차트
 ![image](https://user-images.githubusercontent.com/55550034/140683268-44003066-7318-40eb-b5a3-6dabb5a61b1f.png)
